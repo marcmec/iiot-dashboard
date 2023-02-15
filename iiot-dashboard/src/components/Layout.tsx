@@ -1,13 +1,15 @@
 import {
     DesktopOutlined,
     FileOutlined,
+    LaptopOutlined,
+    NotificationOutlined,
     PieChartOutlined,
     TeamOutlined,
     UserOutlined,
 } from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
-import { useState } from "react";
+import { Layout, MenuProps, theme } from "antd";
+import React, { useState } from "react";
+import { WorkersOrderList } from "./WorkersOrders";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -47,49 +49,43 @@ export const LayoutDashBoard = ({ children }: any) => {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+    const items1: MenuProps["items"] = ["1", "2", "3"].map((key) => ({
+        key,
+        label: `nav ${key}`,
+    }));
+    const items2: MenuProps["items"] = [
+        UserOutlined,
+        LaptopOutlined,
+        NotificationOutlined,
+    ].map((icon, index) => {
+        const key = String(index + 1);
+
+        return {
+            key: `sub${key}`,
+            icon: React.createElement(icon),
+            label: `subnav ${key}`,
+
+            children: new Array(4).fill(null).map((_, j) => {
+                const subKey = index * 4 + j + 1;
+                return {
+                    key: subKey,
+                    label: `option${subKey}`,
+                };
+            }),
+        };
+    });
 
     return (
-        <Layout style={{ minHeight: "100vh" }}>
-            <Sider
-                collapsible
-                collapsed={collapsed}
-                onCollapse={(value: any) => setCollapsed(value)}
-            >
-                <div
-                    style={{
-                        height: 32,
-                        margin: 16,
-                        background: "rgba(255, 255, 255, 0.2)",
-                    }}
-                />
-                <Menu
-                    theme="dark"
-                    defaultSelectedKeys={["1"]}
-                    mode="inline"
-                    items={items}
-                />
-            </Sider>
-            <Layout className="site-layout">
-                <Header style={{ padding: 0, background: colorBgContainer }} />
-                <Content style={{ margin: "0 16px" }}>
-                    <Breadcrumb style={{ margin: "16px 0" }}>
-                        <Breadcrumb.Item>User</Breadcrumb.Item>
-                        <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div
-                        style={{
-                            padding: 24,
-                            minHeight: 360,
-                            background: colorBgContainer,
-                        }}
-                    >
-                        {children}
-                    </div>
-                </Content>
-                <Footer style={{ textAlign: "center" }}>
-                    Ant Design ©2023 Created by Ant UED
-                </Footer>
+        <Layout style={{ width: "100vw", height: "100vh" }}>
+            <Header>header</Header>
+            <Layout>
+                <Sider style={{ padding: 4 }}>left sidebar</Sider>
+                <Content style={{ padding: 4 }}>{children}</Content>
+                <Sider style={{ padding: 4 }}>
+                    <WorkersOrderList />
+                </Sider>
             </Layout>
+            <Footer>footer</Footer>
         </Layout>
     );
 };
