@@ -1,6 +1,6 @@
 import { List, Typography } from "antd";
 
-export const WorkersOrderList = () => {
+export const WorkOrdersList = () => {
     const data = [
         {
             assetId: 5,
