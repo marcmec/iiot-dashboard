@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { API } from "./api/axios";
 import "./App.css";
+import { DashBoard } from "./components/Dashboard";
+import { LayoutDashBoard } from "./components/Layout";
+import { IAssets } from "./interfaces/Assets";
 
 function App() {
     const [count, setCount] = useState(0);
-    const [assets, setAssets] = useState<any>([{}]);
+    const [assets, setAssets] = useState<IAssets[]>([]);
     const data = [
         { year: "1991", value: 3 },
         { year: "1992", value: 4 },
@@ -29,25 +32,27 @@ function App() {
     };
 
     const GetAssets = async () => {
-        const response = await API.get("/assets");
-        console.log(response);
-        setAssets(response);
+        const { data } = await API.get("/assets");
+        console.log(data);
+        setAssets(data);
     };
     useEffect(() => {
         GetAssets();
     }, []);
 
     return (
-        <>
-            <div style={{ color: "black" }}>oxe fora</div>
-            {/* {assets.healthScore.map((e: any) => {
-                <div>
-                    {e} <div style={{ color: "black" }}>oxe</div>
-                </div>;
-            })} */}
-            {/* <Line {...config} /> */}
-        </>
+        <LayoutDashBoard>
+            <DashBoard />
+        </LayoutDashBoard>
     );
 }
 
 export default App;
+
+// {Array.from(assets).map((e: any) => (
+//   <>
+//       <div key={e.id}>{e.healthscore}</div>
+//       <Image src={e.image} alt="wtf" width={200} />
+//       <Line {...config} />
+//   </>
+// ))}
