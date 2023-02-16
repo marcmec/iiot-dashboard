@@ -7,7 +7,7 @@ import {
     TeamOutlined,
     UserOutlined,
 } from "@ant-design/icons";
-import { Layout, MenuProps, theme } from "antd";
+import { Breadcrumb, Layout, MenuProps, theme } from "antd";
 import React, { useState } from "react";
 import { WorkOrdersList } from "./WorkersOrders";
 
@@ -76,16 +76,52 @@ export const LayoutDashBoard = ({ children }: any) => {
     });
 
     return (
-        <Layout style={{ width: "100vw", height: "100vh" }}>
-            <Header>header</Header>
+        <Layout>
+            <Header
+                style={{
+                    position: "sticky",
+                    top: 0,
+                    zIndex: 1,
+                    width: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    display: "flex",
+                    backgroundColor: "white",
+                }}
+            >
+                <Breadcrumb>
+                    <Breadcrumb.Item>Company Id</Breadcrumb.Item>
+                    <Breadcrumb.Item>Unit id</Breadcrumb.Item>
+                </Breadcrumb>
+            </Header>
             <Layout>
-                <Sider style={{ padding: 4 }}>left sidebar</Sider>
-                <Content style={{ padding: 4 }}>{children}</Content>
-                <Sider style={{ padding: 4 }}>
+                <Sider
+                    style={{
+                        padding: 4,
+                        overflow: "auto",
+                        height: "100vh",
+                    }}
+                >
+                    left sidebar
+                </Sider>
+                <Content
+                    style={{ padding: 4, overflow: "auto", height: "100vh" }}
+                >
+                    {children}
+                </Content>
+                <Sider
+                    style={{
+                        padding: 4,
+                        overflow: "auto",
+                        height: "100vh",
+                    }}
+                >
                     <WorkOrdersList />
                 </Sider>
             </Layout>
-            <Footer>footer</Footer>
+            <Footer style={{ textAlign: "center" }}>
+                Ant Design ©2023 Created by Ant UED
+            </Footer>
         </Layout>
     );
 };

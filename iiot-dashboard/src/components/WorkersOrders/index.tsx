@@ -81,18 +81,6 @@ export const WorkOrdersList = () => {
                 overflowY: "auto",
                 maxHeight: "100%",
             }}
-            header={
-                <span
-                    style={{
-                        color: "white",
-                        position: "fixed",
-                        backgroundColor: "blue",
-                        zIndex: 2,
-                    }}
-                >
-                    Work Orders
-                </span>
-            }
             dataSource={workOrders}
             renderItem={(item) => (
                 <List.Item

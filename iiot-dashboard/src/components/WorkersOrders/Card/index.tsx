@@ -23,7 +23,7 @@ export const WorkOrderCard = ({ order }: IProps) => {
                             alignItems: "center",
                         }}
                         bodyStyle={{
-                            padding: 8,
+                            padding: 4,
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "center",
@@ -52,10 +52,17 @@ export const WorkOrderCard = ({ order }: IProps) => {
                         Status:
                         <Typography.Text mark> {order.status}</Typography.Text>
                         <List
-                            style={{ padding: 0 }}
+                            style={{
+                                padding: 0,
+                            }}
                             dataSource={order.checklist}
                             renderItem={(item) => (
-                                <List.Item>
+                                <List.Item
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                    }}
+                                >
                                     <Checkbox
                                         checked={item.completed ? true : false}
                                         disabled
