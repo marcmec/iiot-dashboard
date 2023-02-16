@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, MenuProps, theme } from "antd";
 import React, { useState } from "react";
-import { WorkersOrderList } from "./WorkersOrders";
+import { WorkOrdersList } from "./WorkersOrders";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -82,7 +82,7 @@ export const LayoutDashBoard = ({ children }: any) => {
                 <Sider style={{ padding: 4 }}>left sidebar</Sider>
                 <Content style={{ padding: 4 }}>{children}</Content>
                 <Sider style={{ padding: 4 }}>
-                    <WorkersOrderList />
+                    <WorkOrdersList />
                 </Sider>
             </Layout>
             <Footer>footer</Footer>

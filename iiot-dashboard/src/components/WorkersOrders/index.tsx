@@ -1,7 +1,7 @@
-import { List, Typography } from "antd";
-
+import { List } from "antd";
+import { WorkOrderCard } from "./Card";
 export const WorkOrdersList = () => {
-    const data = [
+    const workOrders = [
         {
             assetId: 5,
             assignedUserIds: [1, 2, 3],
@@ -77,14 +77,31 @@ export const WorkOrdersList = () => {
 
     return (
         <List
-            header={<div>Header</div>}
-            footer={<div>Footer</div>}
-            bordered
-            dataSource={data.map((e) => e.description)}
+            style={{
+                overflowY: "auto",
+                maxHeight: "100%",
+            }}
+            header={
+                <span
+                    style={{
+                        color: "white",
+                        position: "fixed",
+                        backgroundColor: "blue",
+                        zIndex: 2,
+                    }}
+                >
+                    Work Orders
+                </span>
+            }
+            dataSource={workOrders}
             renderItem={(item) => (
-                <List.Item>
-                    <Typography.Text mark>{item}</Typography.Text>
-                    {item}
+                <List.Item
+                    style={{
+                        padding: 0,
+                    }}
+                    key={item.id}
+                >
+                    <WorkOrderCard order={item} />
                 </List.Item>
             )}
         />
