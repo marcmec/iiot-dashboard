@@ -2,30 +2,43 @@ import { Scatter } from "@ant-design/charts";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import { Card, Col, Image, Progress, Row, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
-
+import { API } from "../../../api/axios";
+import { IAssets } from "../../../interfaces/Assets";
+import { WorkOrdersList } from "../../WorkersOrders";
+function converter(data: string) {
+    const fullData = new Date(data);
+    return fullData.getFullYear().toString + "oxe";
+}
 export const AssetCard = () => {
-    const [data, setData] = useState([]);
-
+    const [scatterData, setScatterData] = useState([]);
+    const [asset, setAsset] = useState<IAssets>();
     useEffect(() => {
         asyncFetch();
     }, []);
 
-    const asyncFetch = () => {
-        fetch(
-            "https://gw.alipayobjects.com/os/bmw-prod/3e4db10a-9da1-4b44-80d8-c128f42764a8.json"
-        )
-            .then((response) => response.json())
-            .then((json) => setData(json))
-            .catch((error) => {
-                console.log("fetch data failed", error);
-            });
+    const asyncFetch = async () => {
+        const { data } = await API.get("/assets/1");
+        setAsset(data);
+        console.log(data.healthHistory);
+        const newData = data.healthHistory.map((value) => {
+            return {
+                ...value,
+                day: new Date(value.timestamp).getUTCDay(),
+                date: new Date(value.timestamp).toLocaleDateString(),
+                status: value.status,
+            };
+        });
+        setScatterData(newData);
+        console.log(newData);
+        console.log(data.healthHistory);
     };
     const scatterConfig = {
         appendPadding: 24,
-        data,
-        xField: "xG conceded",
-        yField: "Shot conceded",
-        colorField: "Result",
+        data: scatterData,
+
+        xField: "date",
+        yField: "day",
+        colorField: "status", //aceita #efe1d1
         size: 5,
         shape: "circle",
         pointStyle: {
@@ -62,22 +75,23 @@ export const AssetCard = () => {
             title={"name asset"}
             style={{
                 padding: 16,
+                // backgroundColor: "red",
             }}
         >
             <Col span={8}>
                 <Card
-                    title={"nome asset"}
+                    title={asset?.name}
                     bodyStyle={{
                         display: "flex",
                         flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
                         height: "100%",
                     }}
                 >
-                    <Image
-                        src="https://tractian-img.s3.amazonaws.com/6d5028682016cb43d02b857d4f1384ae.jpeg"
-                        width={300}
-                    />
-                    Status: <Typography.Text mark>In Alert</Typography.Text>
+                    <Image src={asset?.image} width={300} />
+                    Status:{" "}
+                    <Typography.Text mark>{asset?.status}</Typography.Text>
                     <Card
                         title={"Specifications"}
                         size={"small"}
@@ -85,13 +99,14 @@ export const AssetCard = () => {
                             backgroundColor: "transparent",
                         }}
                     >
+                        Model: <Typography.Text>{asset?.model}</Typography.Text>
                         <p>Health Score</p>
-                        <Progress percent={70} steps={10} />
+                        <Progress percent={asset?.healthscore} steps={10} />
                         <br />
                         <p>MaxTemp</p>
                         <Progress
                             type="circle"
-                            percent={80}
+                            percent={asset?.specifications.maxTemp}
                             format={(percent) => `${percent} ˚C`}
                             strokeColor={{
                                 "0%": "#108ee9",
@@ -102,48 +117,57 @@ export const AssetCard = () => {
                     </Card>
                 </Card>
             </Col>
-            <Col span={4}>
-                <Card title={"Metrics"} style={{ height: "100%" }}>
-                    <Space
-                        direction="vertical"
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-                        <Card
-                            size="small"
-                            title="Last Up time At"
-                            extra={<ClockCircleOutlined />}
-                            style={{ width: 300 }}
-                        >
-                            {`${"2023-01-01T16:17:50.180Z"}`}
+            <Col span={16}>
+                <Row>
+                    <Col span={12}>
+                        <Card title={"Metrics"} style={{ height: "100%" }}>
+                            <Space
+                                direction="vertical"
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Card
+                                    size="small"
+                                    title="Last Up time At"
+                                    extra={<ClockCircleOutlined />}
+                                    style={{ width: 300 }}
+                                >
+                                    {`${"2023-01-01T16:17:50.180Z"}`}
+                                </Card>
+
+                                <Card
+                                    size="small"
+                                    title="Total Collects Up Time"
+                                    extra={<ClockCircleOutlined />}
+                                    style={{ width: 300 }}
+                                >
+                                    7516
+                                </Card>
+
+                                <Card
+                                    size="small"
+                                    title="Total Up Time"
+                                    extra={<ClockCircleOutlined />}
+                                    style={{ width: 300 }}
+                                >{`${1419.620084999977}`}</Card>
+                            </Space>
                         </Card>
+                    </Col>
 
-                        <Card
-                            size="small"
-                            title="Total Collects Up Time"
-                            extra={<ClockCircleOutlined />}
-                            style={{ width: 300 }}
-                        >
-                            7516
+                    <Col span={12} style={{ height: "100%" }}>
+                        <Card title={"Health History"}>
+                            <Scatter {...scatterConfig} />
                         </Card>
-
-                        <Card
-                            size="small"
-                            title="Total Up Time"
-                            extra={<ClockCircleOutlined />}
-                            style={{ width: 300 }}
-                        >{`${1419.620084999977}`}</Card>
-                    </Space>
-                </Card>
-            </Col>
-
-            <Col span={12} style={{ height: "100%" }}>
-                <Card title={"Health History"}>
-                    <Scatter {...scatterConfig} />
-                </Card>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={24}>
+                        <WorkOrdersList />
+                    </Col>
+                </Row>
             </Col>
         </Row>
     );

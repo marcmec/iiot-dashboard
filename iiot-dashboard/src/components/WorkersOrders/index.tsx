@@ -1,4 +1,4 @@
-import { List } from "antd";
+import { Carousel } from "antd";
 import { WorkOrderCard } from "./Card";
 export const WorkOrdersList = () => {
     const workOrders = [
@@ -74,24 +74,34 @@ export const WorkOrdersList = () => {
             title: "Repair Fan D22",
         },
     ];
+    const onChange = (currentSlide: number) => {
+        console.log(currentSlide);
+    };
 
     return (
-        <List
-            style={{
-                overflowY: "auto",
-                maxHeight: "100%",
-            }}
-            dataSource={workOrders}
-            renderItem={(item) => (
-                <List.Item
-                    style={{
-                        padding: 0,
-                    }}
-                    key={item.id}
-                >
-                    <WorkOrderCard order={item} />
-                </List.Item>
-            )}
-        />
+        <Carousel autoplay dots={true} dotPosition={"bottom"}>
+            {workOrders.map((items) => (
+                <WorkOrderCard order={items} key={items.id} />
+            ))}
+        </Carousel>
     );
 };
+{
+    /* <List
+                style={{
+                    overflowY: "auto",
+                    maxHeight: "100%",
+                }}
+                dataSource={workOrders}
+                renderItem={(item) => (
+                    <List.Item
+                        style={{
+                            padding: 0,
+                        }}
+                        key={item.id}
+                    >
+                        <WorkOrderCard order={item} />
+                    </List.Item>
+                )}
+            /> */
+}

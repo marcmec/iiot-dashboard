@@ -9,7 +9,6 @@ import {
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, MenuProps, theme } from "antd";
 import React, { useState } from "react";
-import { WorkOrdersList } from "./WorkersOrders";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -109,7 +108,7 @@ export const LayoutDashBoard = ({ children }: any) => {
                 >
                     {children}
                 </Content>
-                <Sider
+                {/* <Sider
                     style={{
                         padding: 4,
                         overflow: "auto",
@@ -117,7 +116,7 @@ export const LayoutDashBoard = ({ children }: any) => {
                     }}
                 >
                     <WorkOrdersList />
-                </Sider>
+                </Sider> */}
             </Layout>
             <Footer style={{ textAlign: "center" }}>
                 Ant Design ©2023 Created by Ant UED
