@@ -1,78 +1,38 @@
 import {
-    DesktopOutlined,
-    FileOutlined,
-    LaptopOutlined,
-    NotificationOutlined,
-    PieChartOutlined,
-    TeamOutlined,
+    UploadOutlined,
     UserOutlined,
+    VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Breadcrumb, Layout, MenuProps, theme } from "antd";
-import React, { useState } from "react";
+import { Breadcrumb, Layout, Menu } from "antd";
+import { useNavigate, useOutlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-type MenuItem = Required<MenuProps>["items"][number];
-
-function getItem(
-    label: React.ReactNode,
-    key: React.Key,
-    icon?: React.ReactNode,
-    children?: MenuItem[]
-): MenuItem {
-    return {
-        key,
-        icon,
-        children,
-        label,
-    } as MenuItem;
-}
-
-const items: MenuItem[] = [
-    getItem("Option 1", "1", <PieChartOutlined />),
-    getItem("Option 2", "2", <DesktopOutlined />),
-    getItem("User", "sub1", <UserOutlined />, [
-        getItem("Tom", "3"),
-        getItem("Bill", "4"),
-        getItem("Alex", "5"),
-    ]),
-    getItem("Team", "sub2", <TeamOutlined />, [
-        getItem("Team 1", "6"),
-        getItem("Team 2", "8"),
-    ]),
-    getItem("Files", "9", <FileOutlined />),
-];
-
 export const LayoutDashBoard = ({ children }: any) => {
-    const [collapsed, setCollapsed] = useState(false);
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
-    const items1: MenuProps["items"] = ["1", "2", "3"].map((key) => ({
-        key,
-        label: `nav ${key}`,
-    }));
-    const items2: MenuProps["items"] = [
-        UserOutlined,
-        LaptopOutlined,
-        NotificationOutlined,
-    ].map((icon, index) => {
-        const key = String(index + 1);
-
-        return {
-            key: `sub${key}`,
-            icon: React.createElement(icon),
-            label: `subnav ${key}`,
-
-            children: new Array(4).fill(null).map((_, j) => {
-                const subKey = index * 4 + j + 1;
-                return {
-                    key: subKey,
-                    label: `option${subKey}`,
-                };
-            }),
-        };
-    });
+    const navItems = [
+        {
+            key: "/comapany/1", //colocar route com
+            icon: <UserOutlined />,
+            label: "Empresa1",
+        },
+        {
+            key: "/asset/1", //colocar route com
+            icon: <UserOutlined />,
+            label: "nav 1",
+        },
+        {
+            key: "/users",
+            icon: <VideoCameraOutlined />,
+            label: "nav 2",
+        },
+        {
+            key: "3",
+            icon: <UploadOutlined />,
+            label: "nav 3",
+        },
+    ];
+    const navigate = useNavigate();
+    const outlet = useOutlet();
 
     return (
         <Layout>
@@ -85,10 +45,10 @@ export const LayoutDashBoard = ({ children }: any) => {
                     justifyContent: "center",
                     alignItems: "center",
                     display: "flex",
-                    backgroundColor: "white",
+                    background: "#9dbda4",
                 }}
             >
-                <Breadcrumb>
+                <Breadcrumb style={{ padding: 16, borderRadius: 4 }}>
                     <Breadcrumb.Item>Company Id</Breadcrumb.Item>
                     <Breadcrumb.Item>Unit id</Breadcrumb.Item>
                 </Breadcrumb>
@@ -99,28 +59,29 @@ export const LayoutDashBoard = ({ children }: any) => {
                         padding: 4,
                         overflow: "auto",
                         height: "100vh",
+                        background: "#9dbda4",
                     }}
                 >
-                    left sidebar
+                    <div className="logo" />
+                    <Menu
+                        mode="inline"
+                        style={{ height: "100%", background: "#9dbda4" }}
+                        defaultSelectedKeys={["0"]}
+                        onClick={({ key }) => {
+                            navigate(key);
+                        }}
+                        items={navItems}
+                    />
                 </Sider>
                 <Content
                     style={{ padding: 4, overflow: "auto", height: "100vh" }}
                 >
-                    {children}
+                    {outlet}
+                    {/* <Footer style={{ textAlign: "center" }}>
+                        Ant Design ©2023 Created by Ant UED
+                    </Footer> */}
                 </Content>
-                {/* <Sider
-                    style={{
-                        padding: 4,
-                        overflow: "auto",
-                        height: "100vh",
-                    }}
-                >
-                    <WorkOrdersList />
-                </Sider> */}
             </Layout>
-            <Footer style={{ textAlign: "center" }}>
-                Ant Design ©2023 Created by Ant UED
-            </Footer>
         </Layout>
     );
 };

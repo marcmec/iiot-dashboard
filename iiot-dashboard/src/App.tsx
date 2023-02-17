@@ -1,13 +1,8 @@
 import "./App.css";
-import { DashBoard } from "./components/Dashboard";
-import { LayoutDashBoard } from "./components/Layout";
+import { LayoutRoutes } from "./routes";
 
 function App() {
-    return (
-        <LayoutDashBoard>
-            <DashBoard />
-        </LayoutDashBoard>
-    );
+    return <LayoutRoutes />;
 }
 
 export default App;
