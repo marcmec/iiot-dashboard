@@ -11,24 +11,20 @@ const { Header, Content, Footer, Sider } = Layout;
 export const LayoutDashBoard = ({ children }: any) => {
     const navItems = [
         {
-            key: "/comapany/1", //colocar route com
+            key: "/company/1", //colocar route com
             icon: <UserOutlined />,
             label: "Empresa1",
         },
-        {
-            key: "/asset/1", //colocar route com
-            icon: <UserOutlined />,
-            label: "nav 1",
-        },
+
         {
             key: "/users",
             icon: <VideoCameraOutlined />,
             label: "nav 2",
         },
         {
-            key: "3",
+            key: "/logout",
             icon: <UploadOutlined />,
-            label: "nav 3",
+            label: "LogOut",
         },
     ];
     const navigate = useNavigate();
@@ -68,7 +64,12 @@ export const LayoutDashBoard = ({ children }: any) => {
                         style={{ height: "100%", background: "#9dbda4" }}
                         defaultSelectedKeys={["0"]}
                         onClick={({ key }) => {
-                            navigate(key);
+                            if (key === "/logout") {
+                                // <Navigate to={"/"} />;
+                                navigate("/");
+                            } else {
+                                navigate(key);
+                            }
                         }}
                         items={navItems}
                     />

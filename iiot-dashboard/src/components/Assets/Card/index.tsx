@@ -1,33 +1,24 @@
 import { ClockCircleOutlined } from "@ant-design/icons";
-import {
-    Card,
-    Col,
-    Image,
-    Progress,
-    Row,
-    Skeleton,
-    Space,
-    Typography,
-} from "antd";
+import { Card, Col, Row, Skeleton, Space } from "antd";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { API } from "../../../api/axios";
 import { days } from "../../../constants";
 import { IAssets } from "../../../interfaces/Assets";
 import { ScatterGraph } from "../../graphs/Scatter";
 import { WorkOrdersList } from "../../WorkersOrders";
-function converter(data: string) {
-    const fullData = new Date(data);
-    return fullData.getFullYear().toString + "oxe";
-}
+import { CardAssetEspecification } from "./CardAssetEspecifications";
+
 export const AssetCard = () => {
     const [scatterData, setScatterData] = useState([]);
     const [asset, setAsset] = useState<IAssets>();
+    const { id } = useParams();
     useEffect(() => {
         asyncFetch();
     }, []);
 
     const asyncFetch = async () => {
-        const { data } = await API.get("/assets/1");
+        const { data } = await API.get(`${"/assets/" + id}`);
         setAsset(data);
         console.log(data.healthHistory);
         const newData = data.healthHistory.map((value: any) => {
@@ -54,44 +45,7 @@ export const AssetCard = () => {
         >
             <Skeleton loading={!scatterData} active avatar>
                 <Col span={8}>
-                    <Card
-                        title={asset?.name}
-                        bodyStyle={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            height: "100%",
-                        }}
-                    >
-                        <Image src={asset?.image} width={300} />
-                        Status:{" "}
-                        <Typography.Text mark>{asset?.status}</Typography.Text>
-                        <Card
-                            title={"Specifications"}
-                            size={"small"}
-                            style={{
-                                backgroundColor: "transparent",
-                            }}
-                        >
-                            Model:{" "}
-                            <Typography.Text>{asset?.model}</Typography.Text>
-                            <p>Health Score</p>
-                            <Progress percent={asset?.healthscore} steps={10} />
-                            <br />
-                            <p>MaxTemp</p>
-                            <Progress
-                                type="circle"
-                                percent={asset?.specifications.maxTemp}
-                                format={(percent) => `${percent} ˚C`}
-                                strokeColor={{
-                                    "0%": "#108ee9",
-                                    "50%": "#FAAD14",
-                                    "100%": "red",
-                                }}
-                            />
-                        </Card>
-                    </Card>
+                    <CardAssetEspecification asset={asset} />
                 </Col>
                 <Col span={16}>
                     <Row>

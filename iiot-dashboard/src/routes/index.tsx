@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { AssetCard } from "../components/Assets/Card";
 import { Companies } from "../components/Companies";
+import { Company } from "../components/Companies/Company";
 import { DashBoard } from "../components/Dashboard";
 import { LayoutDashBoard } from "../components/Layout";
 import { Users } from "../components/Users";
@@ -11,7 +12,8 @@ export const LayoutRoutes = () => {
             <Routes>
                 <Route path="/" element={<Companies />} />
                 <Route element={<LayoutDashBoard />}>
-                    <Route path="/empresa/1" element={<DashBoard />} />
+                    <Route path="/company/:id" element={<Company />} />
+                    <Route path="/company/assets/:id" element={<DashBoard />} />
                     <Route path="/asset/1" element={<AssetCard />} />
                     <Route path="/assets" element={<Users />} />
                     <Route path="/users" element={<Users />} />
