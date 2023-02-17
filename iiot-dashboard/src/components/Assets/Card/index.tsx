@@ -30,8 +30,6 @@ export const AssetCard = () => {
             };
         });
         setScatterData(newData);
-        console.log(newData);
-        console.log(data.healthHistory);
     };
 
     return (
@@ -65,24 +63,27 @@ export const AssetCard = () => {
                                         extra={<ClockCircleOutlined />}
                                         style={{ width: 300 }}
                                     >
-                                        {`${"2023-01-01T16:17:50.180Z"}`}
+                                        {new Date(
+                                            asset?.metrics.lastUptimeAt
+                                        ).toDateString()}
                                     </Card>
-
+                                    <Card
+                                        size="small"
+                                        title="Total Up Time"
+                                        extra={<ClockCircleOutlined />}
+                                        style={{ width: 300 }}
+                                    >
+                                        {asset?.metrics.totalUptime.toPrecision()}{" "}
+                                        Hours
+                                    </Card>
                                     <Card
                                         size="small"
                                         title="Total Collects Up Time"
                                         extra={<ClockCircleOutlined />}
                                         style={{ width: 300 }}
                                     >
-                                        7516
+                                        {asset?.metrics.totalCollectsUptime}
                                     </Card>
-
-                                    <Card
-                                        size="small"
-                                        title="Total Up Time"
-                                        extra={<ClockCircleOutlined />}
-                                        style={{ width: 300 }}
-                                    >{`${1419.620084999977}`}</Card>
                                 </Space>
                             </Card>
                         </Col>
