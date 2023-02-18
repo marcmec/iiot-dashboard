@@ -6,6 +6,7 @@ import { API } from "../../../api/axios";
 import { days } from "../../../constants";
 import { IAssets } from "../../../interfaces/Assets";
 import { ScatterGraph } from "../../graphs/Scatter";
+import { Users } from "../../Users";
 import { WorkOrdersList } from "../../WorkersOrders";
 import { CardAssetEspecification } from "./CardAssetEspecifications";
 
@@ -78,8 +79,7 @@ export const AssetCard = () => {
                                         {Math.round(
                                             Number(
                                                 asset?.metrics.totalUptime.toPrecision()
-                                            ),
-                                            -2
+                                            )
                                         )}{" "}
                                         Hours
                                     </Card>
@@ -101,12 +101,15 @@ export const AssetCard = () => {
                             </Card>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col span={24}>
-                            <WorkOrdersList />
-                        </Col>
-                    </Row>
                 </Col>
+                <Row>
+                    <Col span={8}>
+                        <Users />
+                    </Col>
+                    <Col span={16}>
+                        <WorkOrdersList />
+                    </Col>
+                </Row>
             </Skeleton>
         </Row>
     );

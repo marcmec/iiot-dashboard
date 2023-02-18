@@ -145,10 +145,10 @@ export const Company = ({}) => {
                         <WorkOrdersList />
                     </Col>
                 </Row>
-
+                {/* 
                 <Col span={24}>
                     <Typography.Title>Unidades</Typography.Title>
-                </Col>
+                </Col> */}
             </Row>
         </div>
     );

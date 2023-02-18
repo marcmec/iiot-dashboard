@@ -17,9 +17,3 @@ export const UserCard = ({ user }: IUserProps) => {
         </Card>
     );
 };
-
-//    "companyId": 1,
-//     "email": "testerOne@tractian.com",
-//     "id": 1,
-//     "name": "John Doe",
-//     "unitId": 1

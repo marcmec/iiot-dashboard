@@ -1,6 +1,6 @@
 import axios from "axios";
-import { TRACTIAN_BASE_URL } from "../constants";
-
+import { FAKE_API } from "../constants";
+// import { TRACTIAN_BASE_URL } from "../constants";
 export const API = axios.create({
-    baseURL: TRACTIAN_BASE_URL,
+    baseURL: FAKE_API,
 });

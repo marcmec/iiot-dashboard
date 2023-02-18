@@ -1,4 +1,4 @@
-export const TRACTIAN_BASE_URL =
+export const FAKE_API =
     "https://my-json-server.typicode.com/tractian/fake-api/";
 
 export const days = [

@@ -1,4 +1,9 @@
-import { TeamOutlined, UploadOutlined, UserOutlined } from "@ant-design/icons";
+import {
+    BarChartOutlined,
+    LayoutOutlined,
+    TeamOutlined,
+    UploadOutlined,
+} from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
 import { useNavigate, useOutlet } from "react-router-dom";
 
@@ -8,14 +13,19 @@ export const LayoutDashBoard = ({ children }: any) => {
     const navItems = [
         {
             key: "/company/1", //colocar route com
-            icon: <UserOutlined />,
+            icon: <BarChartOutlined />,
             label: "Empresa1",
         },
 
         {
-            key: "/users",
+            key: "/company/users",
             icon: <TeamOutlined />,
             label: "Users",
+        },
+        {
+            key: "/company/units",
+            icon: <LayoutOutlined />,
+            label: "Units",
         },
         {
             key: "/logout",
