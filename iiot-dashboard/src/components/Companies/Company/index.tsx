@@ -3,6 +3,7 @@ import { Badge, Card, Carousel, Col, Row, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { API } from "../../../api/axios";
 import { CardAssetEspecification } from "../../Assets/Card/CardAssetEspecifications";
+import { Users } from "../../Users";
 import { WorkOrdersList } from "../../WorkersOrders";
 
 interface CompanyProps {}
@@ -136,12 +137,10 @@ export const Company = ({}) => {
                     </Col>
                 </Col>
                 <Row>
-                    <Col span={6}>
-                        <WorkOrdersList />
+                    <Col span={12}>
+                        <Users />
                     </Col>
-                    <Col span={6}>
-                        <WorkOrdersList />
-                    </Col>
+
                     <Col span={12}>
                         <WorkOrdersList />
                     </Col>

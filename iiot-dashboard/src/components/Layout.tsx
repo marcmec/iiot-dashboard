@@ -1,8 +1,4 @@
-import {
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-} from "@ant-design/icons";
+import { TeamOutlined, UploadOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
 import { useNavigate, useOutlet } from "react-router-dom";
 
@@ -18,8 +14,8 @@ export const LayoutDashBoard = ({ children }: any) => {
 
         {
             key: "/users",
-            icon: <VideoCameraOutlined />,
-            label: "nav 2",
+            icon: <TeamOutlined />,
+            label: "Users",
         },
         {
             key: "/logout",

@@ -31,6 +31,7 @@ export const AssetCard = () => {
         });
         setScatterData(newData);
     };
+    const newDate = (d: string) => new Date(d).toDateString();
 
     return (
         <Row
@@ -63,9 +64,10 @@ export const AssetCard = () => {
                                         extra={<ClockCircleOutlined />}
                                         style={{ width: 300 }}
                                     >
-                                        {new Date(
-                                            asset?.metrics.lastUptimeAt
-                                        ).toDateString()}
+                                        {" "}
+                                        {newDate(
+                                            String(asset?.metrics.lastUptimeAt)
+                                        )}
                                     </Card>
                                     <Card
                                         size="small"
@@ -73,7 +75,12 @@ export const AssetCard = () => {
                                         extra={<ClockCircleOutlined />}
                                         style={{ width: 300 }}
                                     >
-                                        {asset?.metrics.totalUptime.toPrecision()}{" "}
+                                        {Math.round(
+                                            Number(
+                                                asset?.metrics.totalUptime.toPrecision()
+                                            ),
+                                            -2
+                                        )}{" "}
                                         Hours
                                     </Card>
                                     <Card
