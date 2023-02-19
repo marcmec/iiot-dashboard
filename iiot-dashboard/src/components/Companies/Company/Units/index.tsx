@@ -1,9 +1,13 @@
-import { Card } from "antd";
+import { Card, Col, Row } from "antd";
 import { useEffect, useState } from "react";
 import { API } from "../../../../api/axios";
+import { IAssets } from "../../../../interfaces/Assets";
 import { IUnits } from "../../../../interfaces/Company";
 
-export const Units = () => {
+interface IUnitsProps {
+    assets?: IAssets[];
+}
+export const Units = ({ assets }: IUnitsProps) => {
     const [units, setUnits] = useState([]);
 
     const GetUnits = async () => {
@@ -16,11 +20,21 @@ export const Units = () => {
     }, []);
     return (
         <>
-            <div style={{ color: "black" }}>
-                {units.map((u: IUnits) => (
-                    <Card title={u.name}></Card>
+            <Row gutter={[8, 16]}>
+                {units.map((u: IUnits, i) => (
+                    <Col lg={12} sm={24}>
+                        <Card title={u.name} key={i} style={{ margin: 4 }}>
+                            {assets?.map((item) => (
+                                <>
+                                    {item.unitId === u.id ? (
+                                        <p>{item.name}</p>
+                                    ) : null}
+                                </>
+                            ))}
+                        </Card>
+                    </Col>
                 ))}
-            </div>
+            </Row>
         </>
     );
 };

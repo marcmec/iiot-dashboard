@@ -1,5 +1,5 @@
 import { Carousel } from "antd";
-import { WorkOrderCard } from "./Card";
+import { WorkOrderCard } from "../Card";
 export const WorkOrdersList = () => {
     const workOrders = [
         {

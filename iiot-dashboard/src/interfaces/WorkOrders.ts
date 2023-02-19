@@ -9,7 +9,7 @@ export interface IWorkOrders {
     title: string;
 }
 
-interface ICheckList {
+export interface ICheckList {
     completed: boolean;
     task: string;
 }

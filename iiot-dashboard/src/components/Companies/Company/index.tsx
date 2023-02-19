@@ -1,12 +1,13 @@
 import { Column } from "@ant-design/charts";
-import { Badge, Card, Carousel, Col, Row, Typography } from "antd";
+import { Card, Carousel, Col, Row, Statistic, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { API } from "../../../api/axios";
 import { CardAssetEspecification } from "../../Assets/Card/CardAssetEspecifications";
 import { Users } from "../../Users";
-import { WorkOrdersList } from "../../WorkersOrders";
+import { WorkOrdersList } from "../../WorkersOrders/CarouselWorkOrders";
 import { Units } from "./Units";
 
+import { LikeOutlined } from "@ant-design/icons";
 interface CompanyProps {}
 export const Company = ({}) => {
     const [assets, setAssets] = useState([]);
@@ -51,7 +52,7 @@ export const Company = ({}) => {
         xField: "type",
         yField: "value",
         seriesField: "",
-        color: ({ type }) => {
+        color: ({ type }: any) => {
             if (type === "10-30分" || type === "30+分") {
                 return paletteSemanticRed;
             }
@@ -59,7 +60,7 @@ export const Company = ({}) => {
             return brandColor;
         },
         label: {
-            content: (originData) => {
+            content: (originData: any) => {
                 const val = parseFloat(originData.value);
 
                 if (val < 0.05) {
@@ -93,15 +94,11 @@ export const Company = ({}) => {
                 <Col lg={12} sm={24}>
                     <Row gutter={[8, 16]} wrap>
                         <Col span={24}>
-                            <Card
-                                title={"Coletas totais"}
-                                bordered
-                                extra={[<Badge> 6 assets </Badge>]}
-                                // style={{ backgroundColor: "#ebbbab" }}
-                                bodyStyle={{ backgroundColor: "#9dbda4" }}
-                            >
-                                50000
-                            </Card>
+                            <Statistic
+                                title="Coletas Totais"
+                                value={5182918}
+                                prefix={<LikeOutlined />}
+                            />
                         </Col>
 
                         <Col span={24}>
@@ -113,14 +110,11 @@ export const Company = ({}) => {
                 </Col>
                 <Col lg={12} sm={24}>
                     <Col span={24}>
-                        <Card
-                            title={"Work Orders"}
-                            bordered
-                            // style={{ backgroundColor: "#ebbbab" }}
-                            bodyStyle={{ backgroundColor: "#9dbda4" }}
-                        >
-                            15
-                        </Card>
+                        <Statistic
+                            title="Work Orders"
+                            value={17}
+                            prefix={<LikeOutlined />}
+                        />
                     </Col>
                     <Col span={24}>
                         <WorkOrdersList />

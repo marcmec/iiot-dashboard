@@ -7,7 +7,7 @@ import { days } from "../../../constants";
 import { IAssets } from "../../../interfaces/Assets";
 import { ScatterGraph } from "../../graphs/Scatter";
 import { Users } from "../../Users";
-import { WorkOrdersList } from "../../WorkersOrders";
+import { WorkOrdersList } from "../../WorkersOrders/CarouselWorkOrders";
 import { CardAssetEspecification } from "./CardAssetEspecifications";
 
 export const AssetCard = () => {

@@ -2,8 +2,10 @@ import {
     BarChartOutlined,
     CommentOutlined,
     CustomerServiceOutlined,
+    FileDoneOutlined,
     LayoutOutlined,
     TeamOutlined,
+    ToolOutlined,
     UploadOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, FloatButton, Layout, Menu } from "antd";
@@ -25,9 +27,19 @@ export const LayoutDashBoard = ({ children }: any) => {
             label: "Users",
         },
         {
+            key: "/company/work-orders",
+            icon: <FileDoneOutlined />,
+            label: "Work Orders",
+        },
+        {
             key: "/company/units",
             icon: <LayoutOutlined />,
             label: "Units",
+        },
+        {
+            key: "/company/assets",
+            icon: <ToolOutlined />,
+            label: "Assets",
         },
         {
             key: "/logout",
@@ -59,6 +71,7 @@ export const LayoutDashBoard = ({ children }: any) => {
             </Header>
             <Layout style={{ backgroundColor: "#ebbbab" }}>
                 <Sider
+                    collapsible
                     style={{
                         padding: 4,
                         overflow: "auto",
@@ -66,7 +79,6 @@ export const LayoutDashBoard = ({ children }: any) => {
                         background: "#9dbda4",
                     }}
                 >
-                    <div className="logo" />
                     <Menu
                         mode="inline"
                         style={{ height: "100%", background: "#9dbda4" }}
