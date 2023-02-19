@@ -1,7 +1,11 @@
+import { EyeOutlined } from "@ant-design/icons";
 import { Card, Image, Progress, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
-
-export const CardAssetEspecification = ({ asset }) => {
+import { IAssets } from "../../../../interfaces/Assets";
+interface IAssetsProps {
+    asset: IAssets;
+}
+export const CardAssetEspecification = ({ asset }: IAssetsProps) => {
     const navigate = useNavigate();
     return (
         <Card
@@ -17,7 +21,12 @@ export const CardAssetEspecification = ({ asset }) => {
                 height: "100%",
                 width: "100%",
             }}
-            onClick={() => navigate(`${"/company/assets/" + asset.id}`)}
+            actions={[
+                <EyeOutlined
+                    key="setting"
+                    onClick={() => navigate(`${"/company/assets/" + asset.id}`)}
+                />,
+            ]}
         >
             <Image src={asset?.image} style={{ maxWidth: 200, height: 100 }} />
             Status: <Typography.Text mark>{asset?.status}</Typography.Text>

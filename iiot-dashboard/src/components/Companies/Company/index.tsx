@@ -5,6 +5,7 @@ import { API } from "../../../api/axios";
 import { CardAssetEspecification } from "../../Assets/Card/CardAssetEspecifications";
 import { Users } from "../../Users";
 import { WorkOrdersList } from "../../WorkersOrders";
+import { Units } from "./Units";
 
 interface CompanyProps {}
 export const Company = ({}) => {
@@ -90,24 +91,13 @@ export const Company = ({}) => {
 
             <Row gutter={[8, 16]} wrap>
                 <Col lg={12} sm={24}>
-                    <Row wrap>
-                        <Col span={12}>
+                    <Row gutter={[8, 16]} wrap>
+                        <Col span={24}>
                             <Card
                                 title={"Coletas totais"}
                                 bordered
                                 extra={[<Badge> 6 assets </Badge>]}
-                                style={{ backgroundColor: "#ebbbab" }}
-                                bodyStyle={{ backgroundColor: "#9dbda4" }}
-                            >
-                                50000
-                            </Card>
-                        </Col>
-                        <Col span={12}>
-                            <Card
-                                title={"Coletas totais"}
-                                bordered
-                                style={{ backgroundColor: "#ebbbab" }}
-                                extra={[<Badge> 6 assets </Badge>]}
+                                // style={{ backgroundColor: "#ebbbab" }}
                                 bodyStyle={{ backgroundColor: "#9dbda4" }}
                             >
                                 50000
@@ -115,40 +105,54 @@ export const Company = ({}) => {
                         </Col>
 
                         <Col span={24}>
-                            <Carousel
-                                slidesToShow={2}
-                                centerMode
-                                // infinite={true}
-                                draggable
-                            >
-                                {assets.map((item) => (
-                                    <CardAssetEspecification asset={item} />
-                                ))}
-                            </Carousel>
+                            <Card title={"Total Collects up time - All Assets"}>
+                                <Column {...config} />
+                            </Card>
                         </Col>
                     </Row>
                 </Col>
-
                 <Col lg={12} sm={24}>
                     <Col span={24}>
-                        <Card title={"Total Collects up time - All Assets"}>
-                            <Column {...config} />
+                        <Card
+                            title={"Work Orders"}
+                            bordered
+                            // style={{ backgroundColor: "#ebbbab" }}
+                            bodyStyle={{ backgroundColor: "#9dbda4" }}
+                        >
+                            15
                         </Card>
                     </Col>
-                </Col>
-                <Row>
-                    <Col span={12}>
-                        <Users />
-                    </Col>
-
-                    <Col span={12}>
+                    <Col span={24}>
                         <WorkOrdersList />
                     </Col>
+                </Col>
+                <Row gutter={[8, 16]} wrap>
+                    <Col lg={12} sm={24}>
+                        <Typography.Title>All Assets</Typography.Title>
+                        <Carousel
+                            slidesToShow={2}
+                            // centerMode
+                            // infinite={true}
+
+                            draggable
+                            dotPosition="top"
+                        >
+                            {assets.map((item) => (
+                                <CardAssetEspecification asset={item} />
+                            ))}
+                        </Carousel>
+                    </Col>
+                    <Col lg={12} sm={24}>
+                        <Col span={24}>
+                            <Typography.Title>All Units</Typography.Title>
+
+                            <Units />
+                        </Col>
+                        <Col span={24}>
+                            <Users />
+                        </Col>
+                    </Col>
                 </Row>
-                {/* 
-                <Col span={24}>
-                    <Typography.Title>Unidades</Typography.Title>
-                </Col> */}
             </Row>
         </div>
     );

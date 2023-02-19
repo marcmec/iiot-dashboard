@@ -45,7 +45,7 @@ export const AssetCard = () => {
         >
             <Skeleton loading={!scatterData} active avatar>
                 <Col span={8}>
-                    <CardAssetEspecification asset={asset} />
+                    <CardAssetEspecification asset={asset!} />
                 </Col>
                 <Col span={16}>
                     <Row>

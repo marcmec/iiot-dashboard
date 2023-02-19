@@ -1,10 +1,12 @@
 import {
     BarChartOutlined,
+    CommentOutlined,
+    CustomerServiceOutlined,
     LayoutOutlined,
     TeamOutlined,
     UploadOutlined,
 } from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu } from "antd";
+import { Breadcrumb, FloatButton, Layout, Menu } from "antd";
 import { useNavigate, useOutlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -55,7 +57,7 @@ export const LayoutDashBoard = ({ children }: any) => {
                     <Breadcrumb.Item>Unit id</Breadcrumb.Item>
                 </Breadcrumb>
             </Header>
-            <Layout>
+            <Layout style={{ backgroundColor: "#ebbbab" }}>
                 <Sider
                     style={{
                         padding: 4,
@@ -81,7 +83,7 @@ export const LayoutDashBoard = ({ children }: any) => {
                     />
                 </Sider>
                 <Content
-                    style={{ padding: 4, overflow: "auto", height: "100vh" }}
+                    style={{ padding: 16, overflow: "auto", height: "100vh" }}
                 >
                     {outlet}
                     {/* <Footer style={{ textAlign: "center" }}>
@@ -89,6 +91,15 @@ export const LayoutDashBoard = ({ children }: any) => {
                     </Footer> */}
                 </Content>
             </Layout>
+            <FloatButton.Group
+                trigger="click"
+                type="primary"
+                style={{ right: 24 }}
+                icon={<CustomerServiceOutlined />}
+            >
+                <FloatButton />
+                <FloatButton icon={<CommentOutlined />} />
+            </FloatButton.Group>
         </Layout>
     );
 };
