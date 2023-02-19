@@ -30,12 +30,14 @@ export const WorkOrderCard = ({ order }: IProps) => {
                         maxHeight: "100%",
                         textAlign: "left",
                         alignItems: "center",
+                        justifyContent: "center",
                     }}
                     bodyStyle={{
                         padding: 4,
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
+                        // alignItems: "flex-start",
                     }}
                     // headStyle={{ fontSize: 12 }}
                     title={order.title}
@@ -66,7 +68,8 @@ export const WorkOrderCard = ({ order }: IProps) => {
                                 style={{
                                     display: "flex",
                                     flexDirection: "row",
-                                    justifyContent: "space-evenly",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
                                 }}
                             >
                                 <Checkbox
@@ -77,7 +80,7 @@ export const WorkOrderCard = ({ order }: IProps) => {
                                         ? "Completed"
                                         : "Not Completed"}
                                 </Checkbox>
-                                <p>{item.task}</p>
+                                <span>{item.task}</span>
                             </List.Item>
                         )}
                     />

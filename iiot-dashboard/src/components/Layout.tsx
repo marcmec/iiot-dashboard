@@ -16,7 +16,7 @@ export const LayoutDashBoard = ({ children }: any) => {
         {
             key: "/company/1", //colocar route com
             icon: <BarChartOutlined />,
-            label: "Empresa1",
+            label: "Dashboard",
         },
 
         {
