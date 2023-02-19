@@ -2,7 +2,7 @@ import { Table, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
 import { API } from "../../../api/axios";
-import { IWorkOrders } from "../../../interfaces/WorkOrders";
+import { ICheckList, IWorkOrders } from "../../../interfaces/WorkOrders";
 
 export const WorkOrdersUnits = () => {
     const [workOrders, setWorkOrders] = useState<IWorkOrders[]>([]);
@@ -41,6 +41,11 @@ export const WorkOrdersUnits = () => {
 
             title: "Priority",
             dataIndex: "priority",
+            render: (_, { priority }) => (
+                <Tag color={priority == "high" ? "red" : "blue"}>
+                    {priority}
+                </Tag>
+            ),
         },
         {
             key: 4,
@@ -77,6 +82,24 @@ export const WorkOrdersUnits = () => {
         },
     ];
 
+    const checkListColumns: ColumnsType<ICheckList> = [
+        {
+            title: "task",
+            dataIndex: "task",
+            key: 1,
+        },
+        {
+            title: "Completed",
+            dataIndex: "completed",
+            key: 1,
+            render: (_, { completed }) => (
+                <>
+                    <p>{String(completed)}</p>
+                </>
+            ),
+        },
+    ];
+
     return (
         <Table
             size="small"
@@ -84,10 +107,12 @@ export const WorkOrdersUnits = () => {
             columns={columns}
             scroll={{ x: 1300 }}
             expandable={{
-                expandedRowRender: (record) =>
-                    record.checklist.map((e) => (
-                        <p key={record.id}>{e.task}</p>
-                    )),
+                expandedRowRender: (record) => (
+                    <Table
+                        dataSource={record.checklist}
+                        columns={checkListColumns}
+                    />
+                ),
             }}
             dataSource={workOrders}
         />

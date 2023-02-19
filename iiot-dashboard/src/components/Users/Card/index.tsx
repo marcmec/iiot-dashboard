@@ -13,7 +13,6 @@ export const UserCard = ({ user }: IUserProps) => {
             extra={[<Avatar />]}
         >
             <span>{user.email}</span>
-            <span>{user.unitId}</span>
         </Card>
     );
 };

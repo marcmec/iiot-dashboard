@@ -1,4 +1,3 @@
-import { EyeOutlined } from "@ant-design/icons";
 import { Card, Image, Progress, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import { IAssets } from "../../../../interfaces/Assets";
@@ -13,38 +12,66 @@ export const CardAssetEspecification = ({ asset }: IAssetsProps) => {
             hoverable
             size={"small"}
             style={{ margin: 8, backgroundColor: "#9dbda4", color: "#fbf8e9" }}
-            bodyStyle={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-                width: "100%",
-            }}
-            actions={[
-                <EyeOutlined
-                    key="setting"
-                    onClick={() => navigate(`${"/company/assets/" + asset.id}`)}
-                />,
+            onClick={() => navigate(`${"/company/assets/" + asset.id}`)}
+            extra={[
+                <>
+                    Status:{" "}
+                    <Typography.Text mark>{asset?.status}</Typography.Text>
+                </>,
             ]}
         >
-            <Image src={asset?.image} style={{ maxWidth: 200, height: 100 }} />
-            Status: <Typography.Text mark>{asset?.status}</Typography.Text>
-            Model: <Typography.Text>{asset?.model}</Typography.Text>
-            <p>Health Score</p>
-            <Progress percent={asset?.healthscore} steps={10} />
-            <br />
-            <p>MaxTemp</p>
-            <Progress
-                type="circle"
-                percent={asset?.specifications.maxTemp}
-                format={(percent) => `${percent} ˚C`}
-                strokeColor={{
-                    "0%": "#108ee9",
-                    "50%": "#FAAD14",
-                    "100%": "red",
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
                 }}
-            />
+            >
+                <Image
+                    src={asset?.image}
+                    style={{ maxWidth: 200, height: 100 }}
+                />
+                <span>Model: {asset?.model}</span>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-around",
+                        alignItems: "center",
+                        gap: "10%",
+                    }}
+                >
+                    <div>
+                        <span>Health Score</span>
+                        <br />
+                        <Progress
+                            percent={asset?.healthscore}
+                            steps={5}
+                            strokeColor={[
+                                "red",
+                                "red",
+                                "red",
+                                "green",
+                                "green",
+                            ]}
+                        />
+                    </div>
+                    <div>
+                        <Progress
+                            type="circle"
+                            size="small"
+                            percent={asset?.specifications.maxTemp}
+                            format={(percent) => `${percent} ˚C`}
+                            strokeColor={{
+                                "0%": "#108ee9",
+                                "60%": "#FAAD14",
+                                "100%": "red",
+                            }}
+                        />
+                    </div>
+                </div>
+            </div>
         </Card>
     );
 };

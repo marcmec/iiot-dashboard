@@ -36,7 +36,7 @@ export const AssetCard = () => {
 
     return (
         <Row
-            gutter={[16, 16]}
+            gutter={[16, 8]}
             title={"name asset"}
             style={{
                 padding: 16,
@@ -45,10 +45,15 @@ export const AssetCard = () => {
         >
             <Skeleton loading={!scatterData} active avatar>
                 <Col span={8}>
-                    <CardAssetEspecification asset={asset!} />
+                    <Col span={24}>
+                        <CardAssetEspecification asset={asset!} />
+                    </Col>
+                    <Col span={24}>
+                        <Users assignsUsers={asset?.assignedUserIds!} />
+                    </Col>
                 </Col>
                 <Col span={16}>
-                    <Row>
+                    <Row gutter={[8, 16]}>
                         <Col span={10}>
                             <Card title={"Metrics"} style={{ height: "100%" }}>
                                 <Space
@@ -103,9 +108,6 @@ export const AssetCard = () => {
                     </Row>
                 </Col>
                 <Row>
-                    <Col span={8}>
-                        <Users />
-                    </Col>
                     <Col span={16}>
                         <WorkOrdersList />
                     </Col>

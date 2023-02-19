@@ -7,7 +7,6 @@ import { Units } from "../components/Companies/Company/Units";
 import { DashBoard } from "../components/Dashboard";
 import { LayoutDashBoard } from "../components/Layout";
 import { Users } from "../components/Users";
-import { WorkOrdersUnits } from "../components/WorkersOrders/Units";
 
 export const LayoutRoutes = () => {
     return (
@@ -21,10 +20,6 @@ export const LayoutRoutes = () => {
                     <Route path="/company/assets" element={<AssetsUnits />} />
                     <Route path="/company/users" element={<Users />} />
                     <Route path="/company/units" element={<Units />} />
-                    <Route
-                        path="/company/work-orders"
-                        element={<WorkOrdersUnits />}
-                    />
                 </Route>
             </Routes>
         </div>

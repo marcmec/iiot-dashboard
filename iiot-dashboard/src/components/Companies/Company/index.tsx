@@ -3,9 +3,7 @@ import { Card, Carousel, Col, Row, Statistic, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { API } from "../../../api/axios";
 import { CardAssetEspecification } from "../../Assets/Card/CardAssetEspecifications";
-import { Users } from "../../Users";
 import { WorkOrdersList } from "../../WorkersOrders/CarouselWorkOrders";
-import { Units } from "./Units";
 
 import { LikeOutlined } from "@ant-design/icons";
 interface CompanyProps {}
@@ -121,8 +119,20 @@ export const Company = ({}) => {
                     </Col>
                 </Col>
                 <Row gutter={[8, 16]} wrap>
-                    <Col lg={12} sm={24}>
-                        <Typography.Title>All Assets</Typography.Title>
+                    <Col
+                        lg={6}
+                        sm={24}
+                        style={{
+                            alignItems: "center",
+                            justifyContent: "center",
+                            display: "flex",
+                        }}
+                    >
+                        <Card>
+                            <Typography.Title>All Assets</Typography.Title>
+                        </Card>
+                    </Col>
+                    <Col lg={18} sm={24}>
                         <Carousel
                             slidesToShow={2}
                             // centerMode
@@ -135,16 +145,6 @@ export const Company = ({}) => {
                                 <CardAssetEspecification asset={item} />
                             ))}
                         </Carousel>
-                    </Col>
-                    <Col lg={12} sm={24}>
-                        <Col span={24}>
-                            <Typography.Title>All Units</Typography.Title>
-
-                            <Units />
-                        </Col>
-                        <Col span={24}>
-                            <Users />
-                        </Col>
                     </Col>
                 </Row>
             </Row>

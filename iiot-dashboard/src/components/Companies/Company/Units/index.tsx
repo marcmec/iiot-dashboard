@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { API } from "../../../../api/axios";
 import { IAssets } from "../../../../interfaces/Assets";
 import { IUnits } from "../../../../interfaces/Company";
+import { CardAssetEspecification } from "../../../Assets/Card/CardAssetEspecifications";
 
 interface IUnitsProps {
     assets?: IAssets[];
@@ -27,7 +28,7 @@ export const Units = ({ assets }: IUnitsProps) => {
                             {assets?.map((item) => (
                                 <>
                                     {item.unitId === u.id ? (
-                                        <p>{item.name}</p>
+                                        <CardAssetEspecification asset={item} />
                                     ) : null}
                                 </>
                             ))}

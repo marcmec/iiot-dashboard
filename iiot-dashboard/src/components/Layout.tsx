@@ -2,7 +2,6 @@ import {
     BarChartOutlined,
     CommentOutlined,
     CustomerServiceOutlined,
-    FileDoneOutlined,
     LayoutOutlined,
     TeamOutlined,
     ToolOutlined,
@@ -26,11 +25,7 @@ export const LayoutDashBoard = ({ children }: any) => {
             icon: <TeamOutlined />,
             label: "Users",
         },
-        {
-            key: "/company/work-orders",
-            icon: <FileDoneOutlined />,
-            label: "Work Orders",
-        },
+
         {
             key: "/company/units",
             icon: <LayoutOutlined />,
