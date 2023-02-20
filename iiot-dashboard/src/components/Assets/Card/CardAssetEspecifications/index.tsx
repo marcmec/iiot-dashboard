@@ -1,4 +1,5 @@
-import { Card, Image, Progress, Typography } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { Card, Image, Progress, Space, Tag } from "antd";
 import { useNavigate } from "react-router-dom";
 import { IAssets } from "../../../../interfaces/Assets";
 interface IAssetsProps {
@@ -24,7 +25,22 @@ export const CardAssetEspecification = ({ asset }: IAssetsProps) => {
             extra={[
                 <>
                     Status:{" "}
-                    <Typography.Text mark>{asset?.status}</Typography.Text>
+                    <Space size={[0, 8]}>
+                        <Tag
+                            icon={
+                                asset.status != "inOperation" ? (
+                                    <ExclamationCircleOutlined />
+                                ) : null
+                            }
+                            color={
+                                asset.status != "inOperation"
+                                    ? "#cd201f"
+                                    : "#0B9E2F"
+                            }
+                        >
+                            {asset?.status}
+                        </Tag>
+                    </Space>
                 </>,
             ]}
             headStyle={{ backgroundColor: "#9dbda4" }}

@@ -1,16 +1,15 @@
-import { Card, Col, Row } from "antd";
+import { Card, Col, List, Row } from "antd";
 import { useEffect, useState } from "react";
 import { API } from "../../../../api/axios";
 import { IAssets } from "../../../../interfaces/Assets";
-import { IUnits } from "../../../../interfaces/Company";
 import { CardAssetEspecification } from "../../../Assets/Card/CardAssetEspecifications";
 
-interface IUnitsProps {
+interface IUnitAssetsProps {
     assets?: IAssets[];
 }
-export const Units = ({ assets }: IUnitsProps) => {
-    const [units, setUnits] = useState([]);
 
+export const Units = ({ assets }: IUnitAssetsProps) => {
+    const [units, setUnits] = useState<{ id: number; name: string }[]>([]);
     const GetUnits = async () => {
         const { data } = await API.get("/units");
 
@@ -19,36 +18,47 @@ export const Units = ({ assets }: IUnitsProps) => {
     useEffect(() => {
         GetUnits();
     }, []);
-    const onChange = (currentSlide: number) => {
-        console.log(currentSlide);
-    };
+
+    const assetsFilter = (data: IAssets[], k: number) =>
+        data.filter((item) => item.unitId === k);
+
     return (
         <>
             <Row gutter={[8, 16]}>
-                {units.map((u: IUnits, i) => (
-                    <Col lg={12} sm={24}>
-                        <Card title={u.name} key={i} style={{ margin: 4 }}>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    overflow: "auto",
-                                }}
-                                draggable={true}
-                            >
-                                {assets?.map((item) => (
-                                    <>
-                                        {item.unitId === u.id ? (
+                <Col lg={24} sm={24}>
+                    <List
+                        dataSource={units}
+                        pagination={{
+                            pageSize: 1,
+                            position: "bottom",
+                            align: "center",
+                        }}
+                        renderItem={(item, i) => (
+                            <Card title={item.name} key={item.name.toString()}>
+                                <List
+                                    grid={{
+                                        gutter: 2,
+                                        xs: 1,
+                                        sm: 2,
+                                        md: 4,
+                                        lg: 4,
+                                        xl: 6,
+                                        xxl: 2,
+                                    }}
+                                    pagination={{ pageSize: 2 }}
+                                    dataSource={assetsFilter(assets, item.id)}
+                                    renderItem={(item) => (
+                                        <List.Item>
                                             <CardAssetEspecification
                                                 asset={item}
                                             />
-                                        ) : null}
-                                    </>
-                                ))}
-                            </div>
-                        </Card>
-                    </Col>
-                ))}
+                                        </List.Item>
+                                    )}
+                                />
+                            </Card>
+                        )}
+                    />
+                </Col>
             </Row>
         </>
     );
