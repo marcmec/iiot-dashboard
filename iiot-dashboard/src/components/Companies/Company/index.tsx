@@ -1,9 +1,9 @@
-import { Card, Carousel, Col, Row, Spin, Statistic, Typography } from "antd";
+import { Card, Col, List, Row, Spin, Statistic } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { API } from "../../../api/axios";
 import { CardAssetEspecification } from "../../Assets/Card/CardAssetEspecifications";
 
-import { LikeOutlined } from "@ant-design/icons";
+import { ArrowUpOutlined } from "@ant-design/icons";
 import { IAssets } from "../../../interfaces/Assets";
 import { ColumnAssetsGraph } from "../../graphs/Columns";
 import { WorkOrdersList } from "../../WorkersOrders/CarouselWorkOrders";
@@ -11,9 +11,6 @@ interface CompanyProps {}
 export const Company = ({}) => {
     const [assets, setAssets] = useState<IAssets[]>([]);
     const [totalCollects, setTotalCollects] = useState(0);
-
-    const paletteSemanticRed = "#F4664A";
-    const brandColor = "#5B8FF9";
 
     const totalAssetsCollects = useMemo(
         () => TotalCollectsAssets(totalCollects),
@@ -26,7 +23,7 @@ export const Company = ({}) => {
         setAssets(data);
     };
 
-    function TotalCollectsAssets(num: any) {
+    function TotalCollectsAssets(num: number) {
         for (let i = 0; i < assets.length; i++) {
             num += assets[i].metrics.totalCollectsUptime;
         }
@@ -39,7 +36,7 @@ export const Company = ({}) => {
 
     return (
         <div style={{ height: "100vh", textAlign: "center", color: "black" }}>
-            <Typography.Title>DashBoard</Typography.Title>
+            {/* <Typography.Title>DashBoard</Typography.Title> */}
             <Spin tip="Loading" size="large" spinning={assets.length <= 0}>
                 <Row gutter={[8, 16]} wrap>
                     <Col lg={12} sm={24}>
@@ -48,7 +45,7 @@ export const Company = ({}) => {
                                 <Statistic
                                     title="Total Collects"
                                     value={totalAssetsCollects}
-                                    prefix={<LikeOutlined />}
+                                    prefix={<ArrowUpOutlined />}
                                 />
                             </Col>
 
@@ -64,51 +61,35 @@ export const Company = ({}) => {
                         </Row>
                     </Col>
                     <Col lg={12} sm={24}>
-                        <Col span={24}>
-                            <Statistic
-                                title="Work Orders"
-                                value={17}
-                                prefix={<LikeOutlined />}
-                            />
-                        </Col>
-                        <Col span={24}>
-                            <WorkOrdersList />
-                        </Col>
+                        <WorkOrdersList />
                     </Col>
-                    <Row gutter={[8, 16]} wrap>
-                        <Col
-                            lg={6}
-                            sm={24}
-                            style={{
-                                alignItems: "center",
-                                justifyContent: "center",
-                                display: "flex",
+
+                    <Col
+                        span={24}
+                        style={{
+                            alignItems: "center",
+                            margin: 16,
+                            padding: 16,
+                        }}
+                    >
+                        <List
+                            grid={{
+                                gutter: 16,
                             }}
-                        >
-                            <Card
-                                style={{
-                                    backgroundColor: "transparent",
-                                    border: "none",
-                                }}
-                            >
-                                <Typography.Title>
-                                    All Assets <br />
-                                    {assets.length.toString()}
-                                </Typography.Title>
-                            </Card>
-                        </Col>
-                        <Col lg={18} sm={24}>
-                            <Carousel
-                                slidesToShow={2}
-                                draggable
-                                dotPosition="top"
-                            >
-                                {assets.map((item) => (
-                                    <CardAssetEspecification asset={item} />
-                                ))}
-                            </Carousel>
-                        </Col>
-                    </Row>
+                            size="large"
+                            pagination={{
+                                onChange: (page) => {
+                                    console.log(page);
+                                },
+                                pageSize: 4,
+                                position: "top",
+                            }}
+                            dataSource={assets}
+                            renderItem={(item) => (
+                                <CardAssetEspecification asset={item} />
+                            )}
+                        />
+                    </Col>
                 </Row>
             </Spin>
         </div>
