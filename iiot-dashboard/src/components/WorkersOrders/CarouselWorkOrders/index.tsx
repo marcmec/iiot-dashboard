@@ -1,107 +1,45 @@
 import { Carousel } from "antd";
+import { useEffect, useState } from "react";
+import { API } from "../../../api/axios";
+import { IWorkOrders } from "../../../interfaces/WorkOrders";
 import { WorkOrderCard } from "../Card";
-export const WorkOrdersList = () => {
-    const workOrders = [
-        {
-            assetId: 5,
-            assignedUserIds: [1, 2, 3],
-            checklist: [
-                {
-                    completed: true,
-                    task: "Inspect Fan for visible damage",
-                },
-                {
-                    completed: true,
-                    task: "Test Fan for proper operation",
-                },
-                {
-                    completed: true,
-                    task: "Replace damaged parts",
-                },
-            ],
-            description:
-                "The Fan is not working properly and needs to be repaired.",
-            id: 1,
-            priority: "high",
-            status: "completed",
-            title: "Repair Fan D21",
-        },
-        {
-            assetId: 1,
-            assignedUserIds: [1, 2, 3],
-            checklist: [
-                {
-                    completed: true,
-                    task: "Test motor for overheating",
-                },
-                {
-                    completed: false,
-                    task: "Replace damaged parts",
-                },
-                {
-                    completed: false,
-                    task: "Test motor for proper operation",
-                },
-            ],
-            description: "The motor is running hot and we must inspect.",
-            id: 2,
-            priority: "high",
-            status: "in progress",
-            title: "Repair Motor H13D-1",
-        },
-        {
-            assetId: 3,
-            assignedUserIds: [1, 4, 5],
-            checklist: [
-                {
-                    completed: true,
-                    task: "Inspect Fan for visible damage",
-                },
-                {
-                    completed: true,
-                    task: "Test Fan for proper operation",
-                },
-                {
-                    completed: true,
-                    task: "Replace damaged parts",
-                },
-            ],
-            description:
-                "The Fan is not working properly and needs to be repaired.",
-            id: 2,
-            priority: "high",
-            status: "completed",
-            title: "Repair Fan D22",
-        },
-    ];
-    const onChange = (currentSlide: number) => {
-        console.log(currentSlide);
+
+interface IWorkOrdersProps {
+    asset?: Number;
+}
+export const WorkOrdersList = ({ asset }: IWorkOrdersProps) => {
+    const [workOrders, setWorkOrders] = useState<IWorkOrders[]>([]);
+    const GetWorkOrders = async () => {
+        const { data } = await API.get("/workorders");
+        setWorkOrders(data);
     };
 
-    return (
-        <Carousel autoplay dots={true} dotPosition={"bottom"}>
-            {workOrders.map((items) => (
-                <WorkOrderCard order={items} key={items.id} />
-            ))}
-        </Carousel>
-    );
+    useEffect(() => {
+        GetWorkOrders();
+    }, []);
+    if (asset) {
+        return (
+            <>
+                <Carousel dots={true} dotPosition={"bottom"}>
+                    {workOrders.map((items) => (
+                        <>
+                            {asset == items?.assetId ? (
+                                <WorkOrderCard order={items} key={items.id} />
+                            ) : null}
+                        </>
+                    ))}
+                </Carousel>
+            </>
+        );
+    } else {
+        return (
+            <>
+                <Carousel autoplay dots={true} dotPosition={"bottom"}>
+                    {workOrders.map((items) => (
+                        <WorkOrderCard order={items} key={items.id} />
+                    ))}
+                </Carousel>
+            </>
+        );
+    }
 };
-{
-    /* <List
-                style={{
-                    overflowY: "auto",
-                    maxHeight: "100%",
-                }}
-                dataSource={workOrders}
-                renderItem={(item) => (
-                    <List.Item
-                        style={{
-                            padding: 0,
-                        }}
-                        key={item.id}
-                    >
-                        <WorkOrderCard order={item} />
-                    </List.Item>
-                )}
-            /> */
-}

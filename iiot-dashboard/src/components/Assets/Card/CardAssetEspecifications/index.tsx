@@ -11,7 +11,15 @@ export const CardAssetEspecification = ({ asset }: IAssetsProps) => {
             title={asset?.name}
             hoverable
             size={"small"}
-            style={{ margin: 8, backgroundColor: "#9dbda4", color: "#fbf8e9" }}
+            style={{
+                margin: 8,
+                backgroundColor: "transparent",
+                border: "none",
+            }}
+            bodyStyle={{
+                backgroundColor: "transparent",
+            }}
+            // style={{ margin: 8, backgroundColor: "#9dbda4", color: "#fbf8e9" }}
             onClick={() => navigate(`${"/company/assets/" + asset.id}`)}
             extra={[
                 <>
@@ -19,6 +27,7 @@ export const CardAssetEspecification = ({ asset }: IAssetsProps) => {
                     <Typography.Text mark>{asset?.status}</Typography.Text>
                 </>,
             ]}
+            headStyle={{ backgroundColor: "#9dbda4" }}
         >
             <div
                 style={{
@@ -26,6 +35,7 @@ export const CardAssetEspecification = ({ asset }: IAssetsProps) => {
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
+                    padding: 8,
                 }}
             >
                 <Image

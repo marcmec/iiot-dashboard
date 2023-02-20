@@ -17,6 +17,7 @@ export const WorkOrderCard = ({ order }: IProps) => {
                     <EyeOutlined key="visualizations" />
                 </a>,
             ]}
+            key={order.title}
         >
             <Badge.Ribbon
                 text={`${order.priority}`}
@@ -45,7 +46,6 @@ export const WorkOrderCard = ({ order }: IProps) => {
                     <Avatar.Group maxCount={2}>
                         {order.assignedUserIds.map((users) => (
                             <Avatar
-                                src="https://joeschmoe.io/api/v1/random"
                                 style={{ backgroundColor: "#1890ff" }}
                                 icon={<AntDesignOutlined />}
                             >

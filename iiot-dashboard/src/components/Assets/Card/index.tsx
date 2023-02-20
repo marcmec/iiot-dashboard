@@ -21,7 +21,6 @@ export const AssetCard = () => {
     const asyncFetch = async () => {
         const { data } = await API.get(`${"/assets/" + id}`);
         setAsset(data);
-        console.log(data.healthHistory);
         const newData = data.healthHistory.map((value: any) => {
             return {
                 ...value,
@@ -109,7 +108,7 @@ export const AssetCard = () => {
                 </Col>
                 <Row>
                     <Col span={16}>
-                        <WorkOrdersList />
+                        <WorkOrdersList asset={Number(asset?.id)} />
                     </Col>
                 </Row>
             </Skeleton>

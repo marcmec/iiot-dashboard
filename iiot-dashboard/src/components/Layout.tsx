@@ -4,7 +4,6 @@ import {
     CustomerServiceOutlined,
     LayoutOutlined,
     TeamOutlined,
-    ToolOutlined,
     UploadOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, FloatButton, Layout, Menu } from "antd";
@@ -31,11 +30,11 @@ export const LayoutDashBoard = ({ children }: any) => {
             icon: <LayoutOutlined />,
             label: "Units",
         },
-        {
-            key: "/company/assets",
-            icon: <ToolOutlined />,
-            label: "Assets",
-        },
+        // {
+        //     key: "/company/assets",
+        //     icon: <ToolOutlined />,
+        //     label: "Assets",
+        // },
         {
             key: "/logout",
             icon: <UploadOutlined />,
@@ -64,7 +63,8 @@ export const LayoutDashBoard = ({ children }: any) => {
                     <Breadcrumb.Item>Unit id</Breadcrumb.Item>
                 </Breadcrumb>
             </Header>
-            <Layout style={{ backgroundColor: "#ebbbab" }}>
+            {/* <Layout style={{ backgroundColor: "#ebbbab" }}> */}
+            <Layout>
                 <Sider
                     collapsible
                     style={{

@@ -19,19 +19,33 @@ export const Units = ({ assets }: IUnitsProps) => {
     useEffect(() => {
         GetUnits();
     }, []);
+    const onChange = (currentSlide: number) => {
+        console.log(currentSlide);
+    };
     return (
         <>
             <Row gutter={[8, 16]}>
                 {units.map((u: IUnits, i) => (
                     <Col lg={12} sm={24}>
                         <Card title={u.name} key={i} style={{ margin: 4 }}>
-                            {assets?.map((item) => (
-                                <>
-                                    {item.unitId === u.id ? (
-                                        <CardAssetEspecification asset={item} />
-                                    ) : null}
-                                </>
-                            ))}
+                            <div
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    overflow: "auto",
+                                }}
+                                draggable={true}
+                            >
+                                {assets?.map((item) => (
+                                    <>
+                                        {item.unitId === u.id ? (
+                                            <CardAssetEspecification
+                                                asset={item}
+                                            />
+                                        ) : null}
+                                    </>
+                                ))}
+                            </div>
                         </Card>
                     </Col>
                 ))}

@@ -1,3 +1,4 @@
+import { Spin } from "antd";
 import { useEffect, useState } from "react";
 import { API } from "../../../api/axios";
 import { IAssets } from "../../../interfaces/Assets";
@@ -16,8 +17,10 @@ export const AssetsUnits = () => {
     }, []);
     return (
         <>
-            <Units assets={assets} />
-            <WorkOrdersUnits />
+            <Spin size={"large"} spinning={assets.length <= 0}>
+                <Units assets={assets} />
+                <WorkOrdersUnits />
+            </Spin>
         </>
     );
 };
