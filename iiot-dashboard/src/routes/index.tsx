@@ -5,7 +5,7 @@ import { Companies } from "../components/Companies";
 import { Company } from "../components/Companies/Company";
 import { DashBoard } from "../components/Dashboard";
 import { LayoutDashBoard } from "../components/Layout";
-import { Users } from "../components/Users";
+import { AllUsers } from "../components/Users";
 
 export const LayoutRoutes = () => {
     return (
@@ -17,7 +17,7 @@ export const LayoutRoutes = () => {
                     <Route path="/company/assets/:id" element={<DashBoard />} />
                     <Route path="/asset/1" element={<AssetCard />} />
                     <Route path="/company/units" element={<AssetsUnits />} />
-                    <Route path="/company/users" element={<Users />} />
+                    <Route path="/company/users" element={<AllUsers />} />
                     {/* <Route path="/company/units" element={<Units />} /> */}
                 </Route>
             </Routes>

@@ -6,7 +6,7 @@ import { API } from "../../../api/axios";
 import { days } from "../../../constants";
 import { IAssets } from "../../../interfaces/Assets";
 import { ScatterGraph } from "../../graphs/Scatter";
-import { Users } from "../../Users";
+import { Users } from "../../Users/AssignUsers";
 import { WorkOrdersList } from "../../WorkersOrders/CarouselWorkOrders";
 import { CardAssetEspecification } from "./CardAssetEspecifications";
 
@@ -107,8 +107,8 @@ export const AssetCard = () => {
                     </Row>
                 </Col>
                 <Row>
-                    <Col span={16}>
-                        <WorkOrdersList asset={Number(asset?.id)} />
+                    <Col span={24}>
+                        <WorkOrdersList asset={asset?.id} />
                     </Col>
                 </Row>
             </Skeleton>

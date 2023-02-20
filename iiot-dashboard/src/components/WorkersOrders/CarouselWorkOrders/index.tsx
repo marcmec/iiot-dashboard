@@ -1,11 +1,11 @@
-import { Carousel } from "antd";
+import { Carousel, Row } from "antd";
 import { useEffect, useState } from "react";
 import { API } from "../../../api/axios";
 import { IWorkOrders } from "../../../interfaces/WorkOrders";
 import { WorkOrderCard } from "../Card";
 
 interface IWorkOrdersProps {
-    asset?: Number;
+    asset?: number;
 }
 export const WorkOrdersList = ({ asset }: IWorkOrdersProps) => {
     const [workOrders, setWorkOrders] = useState<IWorkOrders[]>([]);
@@ -17,19 +17,20 @@ export const WorkOrdersList = ({ asset }: IWorkOrdersProps) => {
     useEffect(() => {
         GetWorkOrders();
     }, []);
+    const workOrderFilter = (data: IWorkOrders[]) =>
+        data.filter((item) => item.assetId === asset);
+
     if (asset) {
         return (
-            <>
-                <Carousel dots={true} dotPosition={"bottom"}>
-                    {workOrders.map((items) => (
-                        <>
-                            {asset == items?.assetId ? (
-                                <WorkOrderCard order={items} key={items.id} />
-                            ) : null}
-                        </>
-                    ))}
-                </Carousel>
-            </>
+            <Row>
+                {workOrderFilter(workOrders).map((item) => (
+                    <>
+                        <Carousel dots={true} dotPosition={"bottom"}>
+                            <WorkOrderCard order={item} key={item.id} />
+                        </Carousel>
+                    </>
+                ))}
+            </Row>
         );
     } else {
         return (

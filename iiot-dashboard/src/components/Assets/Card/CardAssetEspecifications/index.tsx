@@ -28,12 +28,12 @@ export const CardAssetEspecification = ({ asset }: IAssetsProps) => {
                     <Space size={[0, 8]}>
                         <Tag
                             icon={
-                                asset.status != "inOperation" ? (
+                                asset?.status != "inOperation" ? (
                                     <ExclamationCircleOutlined />
                                 ) : null
                             }
                             color={
-                                asset.status != "inOperation"
+                                asset?.status != "inOperation"
                                     ? "#cd201f"
                                     : "#0B9E2F"
                             }

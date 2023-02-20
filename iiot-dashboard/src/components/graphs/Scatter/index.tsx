@@ -2,11 +2,11 @@ import { Scatter } from "@ant-design/charts";
 
 export const ScatterGraph = ({ data }: any) => {
     const scatterConfig = {
-        appendPadding: 24,
+        appendPadding: 32,
         data: data,
 
-        xField: "day",
-        yField: "date",
+        xField: "date",
+        yField: "day",
         colorField: "status", //aceita #efe1d1
         size: 5,
         shape: "circle",
@@ -36,7 +36,11 @@ export const ScatterGraph = ({ data }: any) => {
                 },
             },
         },
-        label: {},
+        label: {
+            style: {
+                display: "none",
+            },
+        },
     };
     return <Scatter {...scatterConfig} />;
 };

@@ -39,17 +39,16 @@ export const Company = ({}) => {
             {/* <Typography.Title>DashBoard</Typography.Title> */}
             <Spin tip="Loading" size="large" spinning={assets.length <= 0}>
                 <Row gutter={[8, 16]} wrap>
-                    <Col lg={12} sm={24}>
+                    <Col span={24}>
+                        <Statistic
+                            title="Total Collects"
+                            value={totalAssetsCollects}
+                            prefix={<ArrowUpOutlined />}
+                        />
+                    </Col>
+                    <Col span={24}>
                         <Row gutter={[8, 16]} wrap>
-                            <Col span={24}>
-                                <Statistic
-                                    title="Total Collects"
-                                    value={totalAssetsCollects}
-                                    prefix={<ArrowUpOutlined />}
-                                />
-                            </Col>
-
-                            <Col span={24}>
+                            <Col lg={12} xs={24}>
                                 <Card
                                     title={
                                         "Total Collects up time - All Assets"
@@ -58,10 +57,12 @@ export const Company = ({}) => {
                                     <ColumnAssetsGraph item={assets} />
                                 </Card>
                             </Col>
+                            <Col lg={12} xs={24}>
+                                <Card title={"All Work Orders"}>
+                                    <WorkOrdersList />
+                                </Card>
+                            </Col>
                         </Row>
-                    </Col>
-                    <Col lg={12} sm={24}>
-                        <WorkOrdersList />
                     </Col>
 
                     <Col
