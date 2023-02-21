@@ -1,14 +1,8 @@
 import "./App.css";
-import { CompanyContextProvider } from "./contexts/Company";
 import { LayoutRoutes } from "./routes";
 
 function App() {
-    return (
-        <CompanyContextProvider>
-            {" "}
-            <LayoutRoutes />{" "}
-        </CompanyContextProvider>
-    );
+    return <LayoutRoutes />;
 }
 
 export default App;
