@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { API } from "../../../api/axios";
 import { ICheckList, IWorkOrders } from "../../../interfaces/WorkOrders";
 
-export const WorkOrdersUnits = () => {
+export const AllworkOrders = () => {
     const [workOrders, setWorkOrders] = useState<IWorkOrders[]>([]);
 
     const GetWorkOrders = async () => {
