@@ -1,23 +1,32 @@
 import {
     BarChartOutlined,
-    CommentOutlined,
-    CustomerServiceOutlined,
     FileOutlined,
     LayoutOutlined,
     LogoutOutlined,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
+    PlusCircleOutlined,
     TeamOutlined,
+    ToolOutlined,
+    UserAddOutlined,
 } from "@ant-design/icons";
 import { FloatButton, Layout, Menu, Typography } from "antd";
 import { useContext, useState } from "react";
 import { useNavigate, useOutlet } from "react-router-dom";
 import CompanyContext from "../contexts/Company";
+import { ModalAsset } from "./Modals/Asset";
+import { ModalUser } from "./Modals/User";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 export const LayoutDashBoard = () => {
     const { companyInfo } = useContext(CompanyContext);
+    const [openModal, setOpenModal] = useState({
+        user: false,
+        unit: false,
+        asset: false,
+    });
+
     const navItems = [
         {
             key: "/company/1", //colocar route com
@@ -53,7 +62,18 @@ export const LayoutDashBoard = () => {
     const outlet = useOutlet();
     const localCompanyInfo = JSON.parse(localStorage.getItem("companyInfo")!);
     const [collapsed, setCollapsed] = useState(false);
-
+    function SetModalOpen(modal: String) {
+        if (modal == "user")
+            setOpenModal({ user: !openModal.user, unit: false, asset: false });
+        if (modal == "unit")
+            setOpenModal({ user: false, unit: !openModal.unit, asset: false });
+        if (modal == "asset")
+            setOpenModal({
+                user: false,
+                unit: false,
+                asset: !openModal.asset,
+            });
+    }
     return (
         <Layout>
             <Header
@@ -69,10 +89,9 @@ export const LayoutDashBoard = () => {
                 }}
             >
                 <Typography.Title style={{ padding: 8, color: "#fff" }}>
-                    {companyInfo?.name || localCompanyInfo?.name}
+                    {companyInfo?.name || localCompanyInfo?.name}{" "}
                 </Typography.Title>
             </Header>
-            {/* <Layout style={{ backgroundColor: "#ebbbab" }}> */}
             <Layout>
                 <Sider
                     collapsible
@@ -123,11 +142,19 @@ export const LayoutDashBoard = () => {
                 trigger="click"
                 type="primary"
                 style={{ right: 24 }}
-                icon={<CustomerServiceOutlined />}
+                icon={<PlusCircleOutlined />}
             >
-                <FloatButton />
-                <FloatButton icon={<CommentOutlined />} />
+                <FloatButton
+                    icon={<UserAddOutlined />}
+                    onClick={() => SetModalOpen("user")}
+                />
+                <FloatButton
+                    icon={<ToolOutlined />}
+                    onClick={() => SetModalOpen("asset")}
+                />
             </FloatButton.Group>
+            <ModalUser toggle={openModal.user} action={SetModalOpen} />
+            <ModalAsset toggle={openModal.asset} action={SetModalOpen} />
         </Layout>
     );
 };

@@ -1,46 +1,34 @@
-import { Scatter } from "@ant-design/charts";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
 
 export const ScatterGraph = ({ data }: any) => {
-    const scatterConfig = {
-        appendPadding: 32,
-        data: data,
+    const newData = data.map((item: any) => {
+        return {
+            name: item.status,
+            data: [item.date],
+        };
+    });
+    const options = {
+        title: {
+            text: "Health History",
+            align: "left",
+        },
 
-        xField: "date",
-        yField: "day",
-        colorField: "status", //aceita #efe1d1
-        size: 5,
-        shape: "circle",
-        pointStyle: {
-            fillOpacity: 1,
-            color: "#efe1d1",
-        },
         yAxis: {
-            nice: true,
-            line: {
-                style: {
-                    stroke: "#efe1d1",
-                },
+            title: {
+                text: "date",
+            },
+            labels: {
+                format: "{value:%Y-%m-%d}",
             },
         },
-        xAxis: {
-            grid: {
-                line: {
-                    style: {
-                        stroke: "#eee",
-                    },
-                },
-            },
-            line: {
-                style: {
-                    stroke: "#efe1d1",
-                },
-            },
-        },
-        label: {
-            style: {
-                display: "none",
-            },
-        },
+
+        series: [...newData],
     };
-    return <Scatter {...scatterConfig} />;
+
+    return (
+        <>
+            <HighchartsReact highcharts={Highcharts} options={options} />
+        </>
+    );
 };

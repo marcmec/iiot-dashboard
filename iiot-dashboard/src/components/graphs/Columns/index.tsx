@@ -1,4 +1,5 @@
-import { Column } from "@ant-design/charts";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
 import { IAssets } from "../../../interfaces/Assets";
 
 interface IColumnAssetsGraphProps {
@@ -17,6 +18,10 @@ export const ColumnAssetsGraph = ({ item }: IColumnAssetsGraphProps) => {
         seriesField: "name",
         smooth: true,
     };
+    const options = {
+        title: "Total Collects up Time - All Assets",
+        series: [{ type: "column", data: item }],
+    };
 
-    return <Column {...config} />;
+    return <HighchartsReact highcharts={Highcharts} options={options} />;
 };

@@ -24,8 +24,8 @@ export const AssetCard = () => {
         const newData = data.healthHistory.map((value: any) => {
             return {
                 ...value,
-                day: days[new Date(value.timestamp).getDay()],
-                date: new Date(value.timestamp).toLocaleDateString(),
+                time: days[new Date(value.timestamp).getDay()],
+                date: new Date(value.timestamp).getTime(),
                 status: value.status,
             };
         });
@@ -100,9 +100,8 @@ export const AssetCard = () => {
                         </Col>
 
                         <Col span={14} style={{ height: "100%" }}>
-                            <Card title={"Health History"}>
-                                <ScatterGraph data={scatterData} />
-                            </Card>
+                            <ScatterGraph data={scatterData} />
+                            {/* {JSON.stringify(scatterData)} */}
                         </Col>
                     </Row>
                 </Col>

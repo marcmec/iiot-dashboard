@@ -1,28 +1,14 @@
-import {
-    FileAddOutlined,
-    MinusCircleOutlined,
-    PlusOutlined,
-} from "@ant-design/icons";
-import {
-    Button,
-    Card,
-    FloatButton,
-    Form,
-    Input,
-    List,
-    Modal,
-    Space,
-} from "antd";
+import { FileAddOutlined } from "@ant-design/icons";
+import { FloatButton, Form, List } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { API } from "../../api/axios";
 import CompaniesContext from "../../contexts/Companies";
-import { IUnits } from "../../interfaces/Unit";
+import { ModalCompany } from "../Modals/Company";
 import { CardCompany } from "./Company/Card";
 export const Companies = () => {
     const [companies, setCompanies] = useState<any>([]);
     const { companiesInfo, setCompaniesInfo } = useContext(CompaniesContext);
-    const [modalCreateCompany, setModalCreateCompany] = useState(false);
-    const [addUnits, setAddUnits] = useState<IUnits[]>([]);
+    const [openModal, setOpenModal] = useState(false);
     const getCompanies = async () => {
         const { data } = await API.get("/companies");
 
@@ -45,9 +31,13 @@ export const Companies = () => {
         form.submit();
     };
 
+    const handleOpenModal = () => {
+        setOpenModal(!openModal);
+    };
+
     useEffect(() => {
         getCompanies();
-    }, [modalCreateCompany]);
+    }, []);
     return (
         <div
             style={{
@@ -70,78 +60,13 @@ export const Companies = () => {
                 )}
             />
             <FloatButton
-                onClick={() => setModalCreateCompany(true)}
+                onClick={handleOpenModal}
                 type="primary"
                 style={{ right: 24 }}
                 icon={<FileAddOutlined />}
             />
-            <Modal
-                open={modalCreateCompany}
-                onOk={() => setModalCreateCompany(false)}
-                onCancel={() => setModalCreateCompany(false)}
-                title={"Create Company"}
-            >
-                <Card>
-                    <Input placeholder="Title's Company" />
-                    <Card>
-                        <Form
-                            name="dynamic_form_nest_item"
-                            onFinish={onFinish}
-                            style={{ maxWidth: 600 }}
-                            autoComplete="off"
-                        >
-                            <Form.List name="users" initialValue={addUnits}>
-                                {(fields, { add, remove }) => (
-                                    <>
-                                        {fields.map(
-                                            ({ key, name, ...restField }) => (
-                                                <Space
-                                                    key={key}
-                                                    style={{
-                                                        display: "flex",
-                                                        marginBottom: 8,
-                                                    }}
-                                                    align="baseline"
-                                                >
-                                                    <Form.Item
-                                                        {...restField}
-                                                        name={[name, "first"]}
-                                                        rules={[
-                                                            {
-                                                                required: true,
-                                                                message:
-                                                                    "Missing unit name",
-                                                            },
-                                                        ]}
-                                                    >
-                                                        <Input placeholder="Unit Name" />
-                                                    </Form.Item>
-                                                    <MinusCircleOutlined
-                                                        onClick={() =>
-                                                            remove(name)
-                                                        }
-                                                    />
-                                                </Space>
-                                            )
-                                        )}
-                                        <Form.Item>
-                                            <Button
-                                                type="dashed"
-                                                onClick={() => add()}
-                                                block
-                                                icon={<PlusOutlined />}
-                                            >
-                                                Add Unit
-                                            </Button>
-                                        </Form.Item>
-                                    </>
-                                )}
-                            </Form.List>
-                            <Form.Item></Form.Item>
-                        </Form>
-                    </Card>
-                </Card>
-            </Modal>
+
+            <ModalCompany toggle={openModal} action={handleOpenModal} />
         </div>
     );
 };
