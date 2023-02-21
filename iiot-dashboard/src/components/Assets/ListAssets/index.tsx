@@ -14,9 +14,7 @@ export const AllAssets = () => {
     const GetAllAssets = async () => {
         const { data } = await API.get("/assets");
         const assetsCompanyFilter = data.filter(
-            (item: IAssets) =>
-                item.companyId === companyInfo?.id ||
-                item.companyId === JSON.parse(getCompanyInfoLocalStorage!).id
+            (item: IAssets) => item.companyId === companyInfo?.id
         );
 
         setAllAssets(assetsCompanyFilter);

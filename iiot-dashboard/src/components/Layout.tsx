@@ -7,12 +7,12 @@ import {
     TeamOutlined,
     UploadOutlined,
 } from "@ant-design/icons";
-import { Breadcrumb, FloatButton, Layout, Menu } from "antd";
+import { FloatButton, Layout, Menu, Typography } from "antd";
 import { useNavigate, useOutlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-export const LayoutDashBoard = ({ children }: any) => {
+export const LayoutDashBoard = () => {
     const navItems = [
         {
             key: "/company/1", //colocar route com
@@ -46,7 +46,7 @@ export const LayoutDashBoard = ({ children }: any) => {
     ];
     const navigate = useNavigate();
     const outlet = useOutlet();
-
+    const companyInfo = JSON.parse(localStorage.getItem("companyInfo")!);
     return (
         <Layout>
             <Header
@@ -61,10 +61,9 @@ export const LayoutDashBoard = ({ children }: any) => {
                     background: "#9dbda4",
                 }}
             >
-                <Breadcrumb style={{ padding: 16, borderRadius: 4 }}>
-                    <Breadcrumb.Item>Company Id</Breadcrumb.Item>
-                    <Breadcrumb.Item>Unit id</Breadcrumb.Item>
-                </Breadcrumb>
+                <Typography.Title style={{ padding: 8, color: "#fff" }}>
+                    {companyInfo?.name}
+                </Typography.Title>
             </Header>
             {/* <Layout style={{ backgroundColor: "#ebbbab" }}> */}
             <Layout>
@@ -79,7 +78,11 @@ export const LayoutDashBoard = ({ children }: any) => {
                 >
                     <Menu
                         mode="inline"
-                        style={{ height: "100%", background: "#9dbda4" }}
+                        style={{
+                            height: "100%",
+                            background: "#9dbda4",
+                            color: "#fff",
+                        }}
                         defaultSelectedKeys={["0"]}
                         onClick={({ key }) => {
                             if (key === "/logout") {

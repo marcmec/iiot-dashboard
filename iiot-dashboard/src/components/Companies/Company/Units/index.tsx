@@ -1,7 +1,8 @@
 import { Card, Col, List, Row } from "antd";
-import { useEffect, useState } from "react";
-import { API } from "../../../../api/axios";
+import { useContext, useState } from "react";
+import CompanyContext from "../../../../contexts/Company";
 import { IAssets } from "../../../../interfaces/Assets";
+import { IUnits } from "../../../../interfaces/Unit";
 import { CardAssetEspecification } from "../../../Assets/Card/CardAssetEspecifications";
 
 interface IUnitAssetsProps {
@@ -9,15 +10,8 @@ interface IUnitAssetsProps {
 }
 
 export const Units = ({ assets }: IUnitAssetsProps) => {
-    const [units, setUnits] = useState<{ id: number; name: string }[]>([]);
-    const GetUnits = async () => {
-        const { data } = await API.get("/units");
-
-        setUnits(data);
-    };
-    useEffect(() => {
-        GetUnits();
-    }, []);
+    const { companyInfo } = useContext(CompanyContext);
+    const [units, setUnits] = useState<IUnits[]>(companyInfo?.units!);
 
     const assetsFilter = (data: IAssets[], k: number) =>
         data.filter((item) => item.unitId === k);
@@ -34,7 +28,19 @@ export const Units = ({ assets }: IUnitAssetsProps) => {
                             align: "center",
                         }}
                         renderItem={(item, i) => (
-                            <Card title={item.name} key={item.name.toString()}>
+                            <Card
+                                title={item.name}
+                                key={item.name.toString()}
+                                extra={[
+                                    <a
+                                        onClick={() =>
+                                            alert(JSON.stringify(units[i]))
+                                        }
+                                    >
+                                        Edit
+                                    </a>,
+                                ]}
+                            >
                                 <List
                                     grid={{
                                         gutter: 16,
@@ -46,7 +52,7 @@ export const Units = ({ assets }: IUnitAssetsProps) => {
                                         xxl: 2,
                                     }}
                                     pagination={{ pageSize: 2 }}
-                                    dataSource={assetsFilter(assets, item.id)}
+                                    dataSource={assetsFilter(assets!, item.id)}
                                     renderItem={(item) => (
                                         <List.Item>
                                             <CardAssetEspecification

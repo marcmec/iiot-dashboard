@@ -1,4 +1,4 @@
-import { AssetCard } from "../Assets/Card";
+import { AssetCard } from "../Card";
 
 export const DashBoard = () => {
     return (

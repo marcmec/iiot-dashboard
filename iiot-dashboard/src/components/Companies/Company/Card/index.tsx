@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { API } from "../../../../api/axios";
 import CompanyContext from "../../../../contexts/Company";
+import { IUnits } from "../../../../interfaces/Unit";
 ("@ant-design/icons");
 
 export const CardCompany = ({ item }: any) => {
@@ -12,19 +13,18 @@ export const CardCompany = ({ item }: any) => {
     const GetCompanyInfo = async () => {
         const { data } = await API.get("/units");
 
-        const filterUnit = data.filter((value) => value.companyId === item.id);
+        const filterUnit = data.filter(
+            (value: IUnits) => value.companyId === item.id
+        );
 
-        setCompanyInfo({ id: item.id, name: item.name, units: filterUnit });
-        // id: number;
-        // name: string;
-        // units: IUnits[];
+        setCompanyInfo(
+            { id: item.id, name: item.name, units: filterUnit },
+            localStorage.setItem("companyInfo", JSON.stringify(companyInfo))
+        );
     };
 
     return (
         <Card
-            // title={item.name}
-            // style={{ backgroundColor: "#ebbbab" }}
-
             hoverable
             key={item.id}
             actions={

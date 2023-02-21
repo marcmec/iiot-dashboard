@@ -1,26 +1,36 @@
-import { Card, Col, List, Row, Spin, Statistic } from "antd";
-import { useEffect, useMemo, useState } from "react";
+import { Card, Col, Row, Spin, Statistic } from "antd";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { API } from "../../../api/axios";
-import { CardAssetEspecification } from "../../Assets/Card/CardAssetEspecifications";
 
 import { ArrowUpOutlined } from "@ant-design/icons";
+import CompanyContext from "../../../contexts/Company";
 import { IAssets } from "../../../interfaces/Assets";
+import { AllAssets } from "../../Assets/ListAssets";
 import { ColumnAssetsGraph } from "../../graphs/Columns";
 import { WorkOrdersList } from "../../WorkersOrders/CarouselWorkOrders";
 interface CompanyProps {}
 export const Company = ({}) => {
+    const { companyInfo } = useContext(CompanyContext);
+
     const [assets, setAssets] = useState<IAssets[]>([]);
     const [totalCollects, setTotalCollects] = useState(0);
+    const getCompanyInfoLocalStorage = localStorage.getItem("companyInfo");
 
     const totalAssetsCollects = useMemo(
         () => TotalCollectsAssets(totalCollects),
         [assets]
     );
 
-    const getAssets = async () => {
+    const GetAssets = async () => {
         const { data } = await API.get("/assets");
+        const assetsCompanyFilter = data.filter(
+            (item: IAssets) =>
+                item.companyId === companyInfo?.id ||
+                item.companyId === JSON.parse(getCompanyInfoLocalStorage!)?.id
+        );
 
-        setAssets(data);
+        setAssets(assetsCompanyFilter);
+        localStorage.setItem("assets", JSON.stringify(data));
     };
 
     function TotalCollectsAssets(num: number) {
@@ -31,8 +41,8 @@ export const Company = ({}) => {
     }
 
     useEffect(() => {
-        getAssets();
-    }, []);
+        GetAssets();
+    }, [companyInfo?.id]);
 
     return (
         <div style={{ height: "100vh", textAlign: "center", color: "black" }}>
@@ -60,6 +70,7 @@ export const Company = ({}) => {
                             <Col lg={12} xs={24}>
                                 <Card title={"All Work Orders"}>
                                     <WorkOrdersList />
+                                    {/* <WorkOrdersList workOrders={allWorkOrders}/> */}
                                 </Card>
                             </Col>
                         </Row>
@@ -73,24 +84,7 @@ export const Company = ({}) => {
                             padding: 16,
                         }}
                     >
-                        <List
-                            grid={{
-                                gutter: 2,
-                                column: 2,
-                            }}
-                            size="large"
-                            pagination={{
-                                onChange: (page) => {
-                                    console.log(page);
-                                },
-                                pageSize: 2,
-                                position: "top",
-                            }}
-                            dataSource={assets}
-                            renderItem={(item) => (
-                                <CardAssetEspecification asset={item} />
-                            )}
-                        />
+                        <AllAssets />
                     </Col>
                 </Row>
             </Spin>
