@@ -2,9 +2,9 @@ import {
     BarChartOutlined,
     CommentOutlined,
     CustomerServiceOutlined,
+    FileOutlined,
     LayoutOutlined,
     TeamOutlined,
-    ToolOutlined,
     UploadOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, FloatButton, Layout, Menu } from "antd";
@@ -31,10 +31,11 @@ export const LayoutDashBoard = ({ children }: any) => {
             icon: <LayoutOutlined />,
             label: "Units",
         },
+
         {
-            key: "/company/assets",
-            icon: <ToolOutlined />,
-            label: "Assets",
+            key: "/company/workorders",
+            icon: <FileOutlined />,
+            label: "Work Orders",
         },
 
         {
