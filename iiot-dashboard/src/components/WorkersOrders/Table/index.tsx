@@ -9,8 +9,11 @@ export const AllworkOrders = () => {
 
     const GetWorkOrders = async () => {
         const { data } = await API.get("/workorders");
+        data ? localStorage.setItem("workorders", JSON.stringify(data)) : null;
 
-        setWorkOrders(data);
+        const localWorkOrders = JSON.parse(localStorage.getItem("workorders")!);
+
+        setWorkOrders(localWorkOrders);
     };
 
     useEffect(() => {

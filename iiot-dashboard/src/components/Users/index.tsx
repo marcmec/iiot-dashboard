@@ -5,9 +5,11 @@ import { IUsers } from "../../interfaces/User";
 
 export const AllUsers = () => {
     const [users, setUsers] = useState<IUsers[]>([]);
+
     const GetUsers = async () => {
         const { data } = await API.get("/users");
         setUsers(data);
+        localStorage.setItem("users", JSON.stringify(data));
     };
     useEffect(() => {
         GetUsers();
@@ -34,5 +36,9 @@ export const AllUsers = () => {
             render: () => <a>edit</a>,
         },
     ];
-    return <Table columns={userColumns} dataSource={users} />;
+    return (
+        <>
+            <Table columns={userColumns} dataSource={users} />
+        </>
+    );
 };

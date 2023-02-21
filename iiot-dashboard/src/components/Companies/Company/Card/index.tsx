@@ -17,10 +17,7 @@ export const CardCompany = ({ item }: any) => {
             (value: IUnits) => value.companyId === item.id
         );
 
-        setCompanyInfo(
-            { id: item.id, name: item.name, units: filterUnit },
-            localStorage.setItem("companyInfo", JSON.stringify(companyInfo))
-        );
+        setCompanyInfo({ id: item.id, name: item.name, units: filterUnit });
     };
 
     return (

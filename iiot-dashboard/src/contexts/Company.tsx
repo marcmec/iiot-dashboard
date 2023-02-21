@@ -10,6 +10,7 @@ const CompanyContext = createContext({} as CompanyContext);
 export const CompanyContextProvider = ({ children }: any) => {
     const [companyInfo, setCompanyInfo] = useState<ICompany | null>(null);
 
+    // useEffect(() => {}, [companyInfo]);
     return (
         <CompanyContext.Provider value={{ companyInfo, setCompanyInfo }}>
             {children}

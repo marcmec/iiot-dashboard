@@ -4,15 +4,20 @@ import {
     CustomerServiceOutlined,
     FileOutlined,
     LayoutOutlined,
+    LogoutOutlined,
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
     TeamOutlined,
-    UploadOutlined,
 } from "@ant-design/icons";
 import { FloatButton, Layout, Menu, Typography } from "antd";
+import { useContext, useState } from "react";
 import { useNavigate, useOutlet } from "react-router-dom";
+import CompanyContext from "../contexts/Company";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 export const LayoutDashBoard = () => {
+    const { companyInfo } = useContext(CompanyContext);
     const navItems = [
         {
             key: "/company/1", //colocar route com
@@ -40,13 +45,15 @@ export const LayoutDashBoard = () => {
 
         {
             key: "/logout",
-            icon: <UploadOutlined />,
+            icon: <LogoutOutlined />,
             label: "LogOut",
         },
     ];
     const navigate = useNavigate();
     const outlet = useOutlet();
-    const companyInfo = JSON.parse(localStorage.getItem("companyInfo")!);
+    const localCompanyInfo = JSON.parse(localStorage.getItem("companyInfo")!);
+    const [collapsed, setCollapsed] = useState(false);
+
     return (
         <Layout>
             <Header
@@ -62,13 +69,15 @@ export const LayoutDashBoard = () => {
                 }}
             >
                 <Typography.Title style={{ padding: 8, color: "#fff" }}>
-                    {companyInfo?.name}
+                    {companyInfo?.name || localCompanyInfo?.name}
                 </Typography.Title>
             </Header>
             {/* <Layout style={{ backgroundColor: "#ebbbab" }}> */}
             <Layout>
                 <Sider
                     collapsible
+                    trigger={null}
+                    collapsed={collapsed}
                     style={{
                         padding: 4,
                         overflow: "auto",
@@ -79,7 +88,6 @@ export const LayoutDashBoard = () => {
                     <Menu
                         mode="inline"
                         style={{
-                            height: "100%",
                             background: "#9dbda4",
                             color: "#fff",
                         }}
@@ -94,7 +102,17 @@ export const LayoutDashBoard = () => {
                         }}
                         items={navItems}
                     />
+                    {collapsed ? (
+                        <MenuUnfoldOutlined
+                            onClick={() => setCollapsed(!collapsed)}
+                        />
+                    ) : (
+                        <MenuFoldOutlined
+                            onClick={() => setCollapsed(!collapsed)}
+                        />
+                    )}
                 </Sider>
+
                 <Content
                     style={{ padding: 16, overflow: "auto", height: "100vh" }}
                 >

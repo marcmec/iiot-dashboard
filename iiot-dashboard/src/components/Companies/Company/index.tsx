@@ -10,11 +10,9 @@ import { ColumnAssetsGraph } from "../../graphs/Columns";
 import { WorkOrdersList } from "../../WorkersOrders/CarouselWorkOrders";
 interface CompanyProps {}
 export const Company = ({}) => {
-    const { companyInfo } = useContext(CompanyContext);
-
     const [assets, setAssets] = useState<IAssets[]>([]);
     const [totalCollects, setTotalCollects] = useState(0);
-    const getCompanyInfoLocalStorage = localStorage.getItem("companyInfo");
+    const { companyInfo } = useContext(CompanyContext);
 
     const totalAssetsCollects = useMemo(
         () => TotalCollectsAssets(totalCollects),
@@ -24,9 +22,7 @@ export const Company = ({}) => {
     const GetAssets = async () => {
         const { data } = await API.get("/assets");
         const assetsCompanyFilter = data.filter(
-            (item: IAssets) =>
-                item.companyId === companyInfo?.id ||
-                item.companyId === JSON.parse(getCompanyInfoLocalStorage!)?.id
+            (item: IAssets) => item.companyId === companyInfo?.id
         );
 
         setAssets(assetsCompanyFilter);
@@ -42,7 +38,7 @@ export const Company = ({}) => {
 
     useEffect(() => {
         GetAssets();
-    }, [companyInfo?.id]);
+    }, [companyInfo]);
 
     return (
         <div style={{ height: "100vh", textAlign: "center", color: "black" }}>
