@@ -1,10 +1,25 @@
 import { LayoutOutlined, TeamOutlined, ToolOutlined } from "@ant-design/icons";
 import { Badge, Card, Typography } from "antd";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { API } from "../../../../api/axios";
+import CompanyContext from "../../../../contexts/Company";
 ("@ant-design/icons");
 
 export const CardCompany = ({ item }: any) => {
     const navigate = useNavigate();
+    const { companyInfo, setCompanyInfo } = useContext(CompanyContext);
+    const GetCompanyInfo = async () => {
+        const { data } = await API.get("/units");
+
+        const filterUnit = data.filter((value) => value.companyId === item.id);
+
+        setCompanyInfo({ id: item.id, name: item.name, units: filterUnit });
+        // id: number;
+        // name: string;
+        // units: IUnits[];
+    };
+
     return (
         <Card
             // title={item.name}
@@ -30,6 +45,7 @@ export const CardCompany = ({ item }: any) => {
             onClick={() => {
                 if (item.status != "disabled") {
                     navigate(`${"/company/" + item.id}`);
+                    GetCompanyInfo();
                 }
             }}
         >

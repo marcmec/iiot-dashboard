@@ -25,24 +25,24 @@ export const Units = ({ assets }: IUnitAssetsProps) => {
     return (
         <>
             <Row gutter={[8, 16]}>
-                <Col lg={24} sm={24}>
+                <Col span={24}>
                     <List
                         dataSource={units}
                         pagination={{
                             pageSize: 1,
-                            position: "bottom",
+                            position: "top",
                             align: "center",
                         }}
                         renderItem={(item, i) => (
                             <Card title={item.name} key={item.name.toString()}>
                                 <List
                                     grid={{
-                                        gutter: 2,
+                                        gutter: 16,
                                         xs: 1,
                                         sm: 2,
-                                        md: 4,
-                                        lg: 4,
-                                        xl: 6,
+                                        md: 2,
+                                        lg: 2,
+                                        xl: 2,
                                         xxl: 2,
                                     }}
                                     pagination={{ pageSize: 2 }}

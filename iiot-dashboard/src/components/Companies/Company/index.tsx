@@ -75,14 +75,15 @@ export const Company = ({}) => {
                     >
                         <List
                             grid={{
-                                gutter: 16,
+                                gutter: 2,
+                                column: 2,
                             }}
                             size="large"
                             pagination={{
                                 onChange: (page) => {
                                     console.log(page);
                                 },
-                                pageSize: 4,
+                                pageSize: 2,
                                 position: "top",
                             }}
                             dataSource={assets}

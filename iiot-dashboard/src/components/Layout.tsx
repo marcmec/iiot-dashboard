@@ -4,6 +4,7 @@ import {
     CustomerServiceOutlined,
     LayoutOutlined,
     TeamOutlined,
+    ToolOutlined,
     UploadOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, FloatButton, Layout, Menu } from "antd";
@@ -30,11 +31,12 @@ export const LayoutDashBoard = ({ children }: any) => {
             icon: <LayoutOutlined />,
             label: "Units",
         },
-        // {
-        //     key: "/company/assets",
-        //     icon: <ToolOutlined />,
-        //     label: "Assets",
-        // },
+        {
+            key: "/company/assets",
+            icon: <ToolOutlined />,
+            label: "Assets",
+        },
+
         {
             key: "/logout",
             icon: <UploadOutlined />,
@@ -93,9 +95,6 @@ export const LayoutDashBoard = ({ children }: any) => {
                     style={{ padding: 16, overflow: "auto", height: "100vh" }}
                 >
                     {outlet}
-                    {/* <Footer style={{ textAlign: "center" }}>
-                        Ant Design ©2023 Created by Ant UED
-                    </Footer> */}
                 </Content>
             </Layout>
             <FloatButton.Group
