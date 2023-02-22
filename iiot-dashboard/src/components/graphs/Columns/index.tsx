@@ -29,7 +29,6 @@ export const ColumnAssetsGraph = ({ item }: IColumnAssetsGraphProps) => {
     return (
         <>
             <HighchartsReact highcharts={Highcharts} options={options} />{" "}
-            <h1>{JSON.stringify(metrics)}</h1>
         </>
     );
 };
