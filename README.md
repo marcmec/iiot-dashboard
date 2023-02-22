@@ -2,10 +2,10 @@
 Teste de Software Engineer Tractian
 
 
-#before running
+# before running
 cd iiot-dashboard/
 
-#after 
+# after 
 yarn install or yarn add 
 
 and finally 
