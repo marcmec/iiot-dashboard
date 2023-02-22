@@ -27,7 +27,7 @@ export const AllUsers = () => {
             key: 1,
         },
         { title: "Unit", dataIndex: "unitId", key: 2 },
-        { title: "Assign Work Orders", dataInde: "", key: 3 },
+        // { title: "Assign Work Orders", dataInde: "", key: 3 },
         {
             title: "",
             dataIndex: "",

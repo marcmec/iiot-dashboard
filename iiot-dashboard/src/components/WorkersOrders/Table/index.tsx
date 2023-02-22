@@ -1,12 +1,23 @@
 import { Table, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { API } from "../../../api/axios";
+import UsersContext from "../../../contexts/Users";
 import { ICheckList, IWorkOrders } from "../../../interfaces/WorkOrders";
 
 export const AllworkOrders = () => {
     const [workOrders, setWorkOrders] = useState<IWorkOrders[]>([]);
+    const { usersInfo } = useContext(UsersContext);
 
+    const filterUsers = workOrders.map((wo) => {
+        return { users: wo.assignedUserIds };
+    });
+
+    const separate = filterUsers.map((e) =>
+        usersInfo?.map((k) => {
+            return { new: e.users.includes(k.id) };
+        })
+    );
     const GetWorkOrders = async () => {
         const { data } = await API.get("/workorders");
         data ? localStorage.setItem("workorders", JSON.stringify(data)) : null;
@@ -104,20 +115,23 @@ export const AllworkOrders = () => {
     ];
 
     return (
-        <Table
-            size="small"
-            rowKey={(record) => record.title}
-            columns={columns}
-            scroll={{ x: 1300 }}
-            expandable={{
-                expandedRowRender: (record) => (
-                    <Table
-                        dataSource={record.checklist}
-                        columns={checkListColumns}
-                    />
-                ),
-            }}
-            dataSource={workOrders}
-        />
+        <>
+            <Table
+                size="small"
+                rowKey={(record) => record.title}
+                columns={columns}
+                scroll={{ x: 1300 }}
+                expandable={{
+                    expandedRowRender: (record) => (
+                        <Table
+                            dataSource={record.checklist}
+                            columns={checkListColumns}
+                        />
+                    ),
+                }}
+                dataSource={workOrders}
+            />
+            {JSON.stringify(separate)}
+        </>
     );
 };

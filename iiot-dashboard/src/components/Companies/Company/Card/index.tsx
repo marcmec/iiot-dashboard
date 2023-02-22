@@ -4,14 +4,18 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { API } from "../../../../api/axios";
 import CompanyContext from "../../../../contexts/Company";
+import UsersContext from "../../../../contexts/Users";
 import { IUnits } from "../../../../interfaces/Unit";
 ("@ant-design/icons");
 
 export const CardCompany = ({ item }: any) => {
     const navigate = useNavigate();
     const { companyInfo, setCompanyInfo } = useContext(CompanyContext);
+    const { setUsersInfo } = useContext(UsersContext);
     const GetCompanyInfo = async () => {
         const { data } = await API.get("/units");
+        const response = await API.get("/users");
+        setUsersInfo(response.data);
 
         const filterUnit = data.filter(
             (value: IUnits) => value.companyId === item.id
