@@ -24,7 +24,7 @@ export const ScatterGraph = ({ data }: any) => {
                 text: "day",
             },
             categories: [
-                data.map((date) => {
+                data.map((date: any) => {
                     return Highcharts.dateFormat("%A", date.date);
                 }),
             ],
