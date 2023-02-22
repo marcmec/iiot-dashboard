@@ -152,6 +152,10 @@ export const LayoutDashBoard = () => {
                     icon={<ToolOutlined />}
                     onClick={() => SetModalOpen("asset")}
                 />
+                <FloatButton
+                    icon={<FileOutlined />}
+                    onClick={() => SetModalOpen("workorder")}
+                />
             </FloatButton.Group>
             <ModalUser toggle={openModal.user} action={SetModalOpen} />
             <ModalAsset toggle={openModal.asset} action={SetModalOpen} />

@@ -6,24 +6,15 @@ import CompaniesContext from "../../contexts/Companies";
 import { ModalCompany } from "../Modals/Company";
 import { CardCompany } from "./Company/Card";
 export const Companies = () => {
-    const [companies, setCompanies] = useState<any>([]);
     const { companiesInfo, setCompaniesInfo } = useContext(CompaniesContext);
     const [openModal, setOpenModal] = useState(false);
+    const [companies, setCompanies] = useState(companiesInfo);
+
     const getCompanies = async () => {
         const { data } = await API.get("/companies");
 
-        setCompanies([
-            ...data,
-            { id: 2, name: "Another Company", status: "disabled" },
-        ]);
         setCompaniesInfo(data);
-        localStorage.setItem(
-            "companies",
-            JSON.stringify([
-                ...data,
-                { id: 2, name: "Another Company", status: "disabled" },
-            ])
-        );
+        localStorage.setItem("companies", JSON.stringify(data));
     };
 
     const handleOpenModal = () => {
@@ -32,7 +23,7 @@ export const Companies = () => {
 
     useEffect(() => {
         getCompanies();
-    }, []);
+    }, [companies]);
     return (
         <div
             style={{
@@ -48,14 +39,14 @@ export const Companies = () => {
             <h1 style={{ color: "white" }}>Choose a Company</h1>
 
             <List
-                dataSource={companies}
+                pagination={{ pageSize: 2, position: "top" }}
+                dataSource={companiesInfo!}
                 renderItem={(item) => (
                     <List.Item>
                         <CardCompany item={item} />
                     </List.Item>
                 )}
             />
-            {/* <FloatButton.Group> */}
             <FloatButton
                 onClick={handleOpenModal}
                 type="primary"

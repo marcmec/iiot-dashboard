@@ -1,4 +1,4 @@
-import { Card, Col, Row, Spin, Statistic } from "antd";
+import { Card, Col, Empty, Row, Spin, Statistic } from "antd";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { API } from "../../../api/axios";
 
@@ -12,11 +12,6 @@ export const Company = ({}) => {
     const [assets, setAssets] = useState<IAssets[]>([]);
     const [totalCollects, setTotalCollects] = useState(0);
     const { companyInfo } = useContext(CompanyContext);
-
-    const totalAssetsCollects = useMemo(
-        () => TotalCollectsAssets(totalCollects),
-        [assets]
-    );
 
     const GetAssets = async () => {
         const { data } = await API.get("/assets");
@@ -34,55 +29,69 @@ export const Company = ({}) => {
         }
         return num;
     }
+    const totalAssetsCollects = useMemo(
+        () => TotalCollectsAssets(totalCollects),
+        [assets]
+    );
 
     useEffect(() => {
-        GetAssets();
-    }, []);
+        if (companyInfo?.id) GetAssets();
+    }, [companyInfo?.id]);
 
-    return (
-        <div style={{ height: "100vh", textAlign: "center", color: "black" }}>
-            {/* <Typography.Title>DashBoard</Typography.Title> */}
-            <Spin tip="Loading" size="large" spinning={assets.length <= 0}>
-                <Row gutter={[8, 16]} wrap>
-                    <Col span={24}>
-                        <Statistic
-                            title="Total Collects"
-                            value={totalAssetsCollects}
-                            prefix={<ArrowUpOutlined />}
-                        />
-                    </Col>
-                    <Col span={24}>
-                        <Row gutter={[8, 16]} wrap>
-                            <Col lg={12} xs={24}>
-                                <Card
-                                    title={
-                                        "Total Collects up time - All Assets"
-                                    }
-                                >
-                                    <ColumnAssetsGraph item={assets} />
-                                </Card>
-                            </Col>
-                            <Col lg={12} xs={24}>
-                                <Card title={"All Work Orders"}>
-                                    <WorkOrdersList />
-                                    {/* <WorkOrdersList workOrders={allWorkOrders}/> */}
-                                </Card>
-                            </Col>
-                        </Row>
-                    </Col>
+    if (assets) {
+        return (
+            <div
+                style={{ height: "100vh", textAlign: "center", color: "black" }}
+            >
+                {/* <Typography.Title>DashBoard</Typography.Title> */}
+                <Spin tip="Loading" size="large" spinning={assets.length <= 0}>
+                    <Row gutter={[8, 16]} wrap>
+                        <Col span={24}>
+                            <Statistic
+                                title="Total Collects"
+                                value={totalAssetsCollects}
+                                prefix={<ArrowUpOutlined />}
+                            />
+                        </Col>
+                        <Col span={24}>
+                            <Row gutter={[8, 16]} wrap>
+                                <Col lg={12} xs={24}>
+                                    <Card
+                                        title={
+                                            "Total Collects up time - All Assets"
+                                        }
+                                    >
+                                        <ColumnAssetsGraph item={assets} />
+                                    </Card>
+                                </Col>
+                                <Col lg={12} xs={24}>
+                                    <Card title={"All Work Orders"}>
+                                        <WorkOrdersList />
+                                        {/* <WorkOrdersList workOrders={allWorkOrders}/> */}
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </Col>
 
-                    <Col
-                        span={24}
-                        style={{
-                            alignItems: "center",
-                            margin: 16,
-                            padding: 16,
-                        }}
-                    >
-                        <AllAssets allAssets={assets} />
-                    </Col>
-                </Row>
-            </Spin>
-        </div>
-    );
+                        <Col
+                            span={24}
+                            style={{
+                                alignItems: "center",
+                                margin: 16,
+                                padding: 16,
+                            }}
+                        >
+                            <AllAssets allAssets={assets} />
+                        </Col>
+                    </Row>
+                </Spin>
+            </div>
+        );
+    } else {
+        return (
+            <>
+                <Empty />
+            </>
+        );
+    }
 };
