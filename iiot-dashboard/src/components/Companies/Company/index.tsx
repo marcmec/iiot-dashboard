@@ -8,7 +8,6 @@ import { IAssets } from "../../../interfaces/Assets";
 import { ColumnAssetsGraph } from "../../Assets/graphs/Columns";
 import { AllAssets } from "../../Assets/ListAssets";
 import { WorkOrdersList } from "../../WorkersOrders/CarouselWorkOrders";
-interface CompanyProps {}
 export const Company = ({}) => {
     const [assets, setAssets] = useState<IAssets[]>([]);
     const [totalCollects, setTotalCollects] = useState(0);
@@ -38,7 +37,7 @@ export const Company = ({}) => {
 
     useEffect(() => {
         GetAssets();
-    }, [companyInfo]);
+    }, []);
 
     return (
         <div style={{ height: "100vh", textAlign: "center", color: "black" }}>
@@ -80,7 +79,7 @@ export const Company = ({}) => {
                             padding: 16,
                         }}
                     >
-                        <AllAssets />
+                        <AllAssets allAssets={assets} />
                     </Col>
                 </Row>
             </Spin>

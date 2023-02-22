@@ -1,5 +1,5 @@
-import { FileAddOutlined } from "@ant-design/icons";
-import { FloatButton, Form, List } from "antd";
+import { FileAddOutlined, GithubOutlined } from "@ant-design/icons";
+import { FloatButton, List } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { API } from "../../api/axios";
 import CompaniesContext from "../../contexts/Companies";
@@ -25,11 +25,6 @@ export const Companies = () => {
             ])
         );
     };
-    const [form] = Form.useForm();
-    const onFinish = (values: any) => {
-        console.log("Received values of form:", values);
-        form.submit();
-    };
 
     const handleOpenModal = () => {
         setOpenModal(!openModal);
@@ -50,7 +45,8 @@ export const Companies = () => {
                 backgroundColor: "#9dbda4",
             }}
         >
-            <h1 style={{ color: "white" }}>Choose Company</h1>
+            <h1 style={{ color: "white" }}>Choose a Company</h1>
+
             <List
                 dataSource={companies}
                 renderItem={(item) => (
@@ -59,12 +55,24 @@ export const Companies = () => {
                     </List.Item>
                 )}
             />
+            {/* <FloatButton.Group> */}
             <FloatButton
                 onClick={handleOpenModal}
                 type="primary"
                 style={{ right: 24 }}
                 icon={<FileAddOutlined />}
             />
+            <FloatButton
+                style={{ right: 94 }}
+                onClick={() =>
+                    window.open(
+                        "https://github.com/marcmec/iiot-dashboard",
+                        "_blank"
+                    )
+                }
+                icon={<GithubOutlined />}
+            />
+            {/* </FloatButton.Group> */}
 
             <ModalCompany toggle={openModal} action={handleOpenModal} />
         </div>
