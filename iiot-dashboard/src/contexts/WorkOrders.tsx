@@ -15,7 +15,9 @@ export const WorkOrdersContextProvider = ({ children }: any) => {
     return (
         <WorkOrdersContext.Provider
             value={{ workOrdersInfo, setWorkOrdersInfo }}
-        ></WorkOrdersContext.Provider>
+        >
+            {children}
+        </WorkOrdersContext.Provider>
     );
 };
 
