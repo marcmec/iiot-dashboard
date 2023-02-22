@@ -5,6 +5,7 @@ import { IUsers } from "../../interfaces/User";
 
 export const AllUsers = () => {
     const [users, setUsers] = useState<IUsers[]>([]);
+
     const GetUsers = async () => {
         const { data } = await API.get("/users");
 

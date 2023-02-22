@@ -1,6 +1,7 @@
 import { Carousel, Row } from "antd";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { API } from "../../../api/axios";
+import WorkOrdersContext from "../../../contexts/WorkOrders";
 import { IWorkOrders } from "../../../interfaces/WorkOrders";
 import { WorkOrderCard } from "../Card";
 
@@ -9,9 +10,11 @@ interface IWorkOrdersProps {
 }
 export const WorkOrdersList = ({ asset }: IWorkOrdersProps) => {
     const [workOrders, setWorkOrders] = useState<IWorkOrders[]>([]);
+    const { setWorkOrdersInfo } = useContext(WorkOrdersContext);
     const GetWorkOrders = async () => {
         const { data } = await API.get("/workorders");
         setWorkOrders(data);
+        setWorkOrdersInfo(data);
     };
 
     useEffect(() => {
