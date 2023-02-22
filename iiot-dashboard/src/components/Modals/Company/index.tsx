@@ -5,7 +5,7 @@ import { IUnits } from "../../../interfaces/Unit";
 interface ModalProps {
     open: Boolean;
 }
-export const ModalCompany = (props) => {
+export const ModalCompany = (props: any) => {
     const modalState = props.toggle;
     const action = props.action;
     const [addUnits, setAddUnits] = useState<IUnits[] | null>([]);

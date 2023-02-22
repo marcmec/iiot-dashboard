@@ -1,6 +1,6 @@
 import { Form, Input, Modal } from "antd";
 
-export const ModalUser = (props) => {
+export const ModalUser = (props: any) => {
     const modalState = props.toggle;
     const action = props.action;
 

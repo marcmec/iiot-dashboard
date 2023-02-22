@@ -1,7 +1,7 @@
 // assignAssets health score image metrics model name sensor especifications status unit
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Modal, Upload } from "antd";
-export const ModalAsset = (props) => {
+export const ModalAsset = (props: any) => {
     const modalState = props.toggle;
     const action = props.action;
 
