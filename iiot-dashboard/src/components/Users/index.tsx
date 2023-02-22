@@ -5,11 +5,10 @@ import { IUsers } from "../../interfaces/User";
 
 export const AllUsers = () => {
     const [users, setUsers] = useState<IUsers[]>([]);
-
     const GetUsers = async () => {
         const { data } = await API.get("/users");
+
         setUsers(data);
-        localStorage.setItem("users", JSON.stringify(data));
     };
     useEffect(() => {
         GetUsers();
@@ -27,7 +26,6 @@ export const AllUsers = () => {
             key: 1,
         },
         { title: "Unit", dataIndex: "unitId", key: 2 },
-        { title: "Assign Assets", dataInde: "", key: 3 },
         { title: "Assign Work Orders", dataInde: "", key: 3 },
         {
             title: "",

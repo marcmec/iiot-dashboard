@@ -3,6 +3,7 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { API } from "../../../api/axios";
 
 import { ArrowUpOutlined } from "@ant-design/icons";
+import AssetsContext from "../../../contexts/Assets";
 import CompanyContext from "../../../contexts/Company";
 import { IAssets } from "../../../interfaces/Assets";
 import { ColumnAssetsGraph } from "../../Assets/graphs/Columns";
@@ -12,6 +13,7 @@ export const Company = ({}) => {
     const [assets, setAssets] = useState<IAssets[]>([]);
     const [totalCollects, setTotalCollects] = useState(0);
     const { companyInfo } = useContext(CompanyContext);
+    const { setAssetsInfo } = useContext(AssetsContext);
 
     const GetAssets = async () => {
         const { data } = await API.get("/assets");
@@ -21,6 +23,7 @@ export const Company = ({}) => {
 
         setAssets(assetsCompanyFilter);
         localStorage.setItem("assets", JSON.stringify(data));
+        setAssetsInfo(data);
     };
 
     function TotalCollectsAssets(num: number) {
@@ -35,7 +38,9 @@ export const Company = ({}) => {
     );
 
     useEffect(() => {
-        if (companyInfo?.id) GetAssets();
+        if (companyInfo?.id) {
+            GetAssets();
+        }
     }, [companyInfo?.id]);
 
     if (assets) {

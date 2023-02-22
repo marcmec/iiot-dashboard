@@ -2,16 +2,16 @@ import { createContext, useState } from "react";
 import { IAssets } from "../interfaces/Assets";
 
 interface IAssetsContextProps {
-    assetsInfo: IAssets[];
-    setAssets: Function;
+    assetsInfo: IAssets[] | null;
+    setAssetsInfo: Function;
 }
 const AssetsContext = createContext({} as IAssetsContextProps);
 
 export const AssetsContextProvider = ({ children }: any) => {
-    const [assetsInfo, setAssets] = useState<IAssets[]>([]);
+    const [assetsInfo, setAssetsInfo] = useState<IAssets[] | null>(null);
 
     return (
-        <AssetsContext.Provider value={{ assetsInfo, setAssets }}>
+        <AssetsContext.Provider value={{ assetsInfo, setAssetsInfo }}>
             {children}
         </AssetsContext.Provider>
     );
