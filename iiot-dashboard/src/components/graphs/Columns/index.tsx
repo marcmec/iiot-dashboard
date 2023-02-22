@@ -6,22 +6,30 @@ interface IColumnAssetsGraphProps {
     item: IAssets[];
 }
 export const ColumnAssetsGraph = ({ item }: IColumnAssetsGraphProps) => {
-    const config = {
-        data: item.map((value: any) => {
-            return {
-                ...value.metrics,
-                name: value.name,
-            };
-        }),
-        xField: "totalCollectsUptime",
-        yField: "totalUptime",
-        seriesField: "name",
-        smooth: true,
-    };
+    const metrics = item.map((value: any) => {
+        return {
+            name: value.name,
+            data: [value.metrics.totalCollectsUptime],
+        };
+    });
+
     const options = {
         title: "Total Collects up Time - All Assets",
-        series: [{ type: "column", data: item }],
+        chart: {
+            type: "column",
+        },
+        yAxis: {
+            title: {
+                text: "collects",
+            },
+        },
+        series: [...metrics],
     };
 
-    return <HighchartsReact highcharts={Highcharts} options={options} />;
+    return (
+        <>
+            <HighchartsReact highcharts={Highcharts} options={options} />{" "}
+            <h1>{JSON.stringify(metrics)}</h1>
+        </>
+    );
 };
