@@ -15,11 +15,8 @@ export const LayoutRoutes = () => {
                 <Route element={<LayoutDashBoard />}>
                     <Route path="/company/:id" element={<Company />} />
                     <Route path="/company/assets/:id" element={<DashBoard />} />
-                    <Route
-                        path="/company/:id/units"
-                        element={<AssetsUnits />}
-                    />
-                    <Route path="/company/:id/users" element={<AllUsers />} />
+                    <Route path="/company/units" element={<AssetsUnits />} />
+                    <Route path="/company/users" element={<AllUsers />} />
                     <Route
                         path="/company/workorders"
                         element={<AllworkOrders />}
