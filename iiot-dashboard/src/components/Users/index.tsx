@@ -30,10 +30,16 @@ export const AllUsers = () => {
         { title: "Assign Assets", dataInde: "", key: 3 },
         { title: "Assign Work Orders", dataInde: "", key: 3 },
         {
-            title: "action",
+            title: "",
             dataIndex: "",
             key: "",
             render: () => <a>edit</a>,
+        },
+        {
+            title: "",
+            dataIndex: "",
+            key: "",
+            render: () => <a>delete</a>,
         },
     ];
     return (
