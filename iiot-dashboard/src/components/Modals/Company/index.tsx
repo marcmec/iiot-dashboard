@@ -8,7 +8,7 @@ interface ModalProps {
 export const ModalCompany = (props: any) => {
     const modalState = props.toggle;
     const action = props.action;
-    const [addUnits, setAddUnits] = useState<IUnits[] | null>([]);
+    const [addUnits, setAddUnits] = useState<IUnits[]>([]);
     const [form] = Form.useForm();
     const onCreate = (values: any) => {
         console.log("Received values of form: ", values);
@@ -23,7 +23,7 @@ export const ModalCompany = (props: any) => {
                     form.validateFields()
                         .then((values) => {
                             form.resetFields();
-                            setAddUnits(null);
+                            setAddUnits([]);
                             onCreate(values);
                             action("user");
                         })
