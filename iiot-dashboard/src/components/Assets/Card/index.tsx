@@ -5,9 +5,9 @@ import { useParams } from "react-router-dom";
 import { API } from "../../../api/axios";
 import { days } from "../../../constants";
 import { IAssets } from "../../../interfaces/Assets";
-import { ScatterGraph } from "../../graphs/Scatter";
 import { Users } from "../../Users/AssignUsers";
 import { WorkOrdersList } from "../../WorkersOrders/CarouselWorkOrders";
+import { ScatterGraph } from "../graphs/Scatter";
 import { CardAssetEspecification } from "./CardAssetEspecifications";
 
 export const AssetCard = () => {
@@ -24,7 +24,7 @@ export const AssetCard = () => {
         const newData = data.healthHistory.map((value: any) => {
             return {
                 ...value,
-                time: days[new Date(value.timestamp).getDay()],
+                time: days[new Date(value.timestamp).getUTCMonth()],
                 date: new Date(value.timestamp).getTime(),
                 status: value.status,
             };

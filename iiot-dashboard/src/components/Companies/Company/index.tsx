@@ -5,8 +5,8 @@ import { API } from "../../../api/axios";
 import { ArrowUpOutlined } from "@ant-design/icons";
 import CompanyContext from "../../../contexts/Company";
 import { IAssets } from "../../../interfaces/Assets";
+import { ColumnAssetsGraph } from "../../Assets/graphs/Columns";
 import { AllAssets } from "../../Assets/ListAssets";
-import { ColumnAssetsGraph } from "../../graphs/Columns";
 import { WorkOrdersList } from "../../WorkersOrders/CarouselWorkOrders";
 interface CompanyProps {}
 export const Company = ({}) => {

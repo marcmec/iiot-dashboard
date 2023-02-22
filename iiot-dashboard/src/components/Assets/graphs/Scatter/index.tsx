@@ -8,12 +8,27 @@ export const ScatterGraph = ({ data }: any) => {
             data: [item.date],
         };
     });
+    const newData1 = data.map((item: any) => {
+        return {
+            name: item.status,
+            data: item.date,
+        };
+    });
     const options = {
         title: {
             text: "Health History",
             align: "left",
         },
-
+        xAxis: {
+            title: {
+                text: "day",
+            },
+            categories: [
+                data.map((date) => {
+                    return Highcharts.dateFormat("%A", date.date);
+                }),
+            ],
+        },
         yAxis: {
             title: {
                 text: "date",

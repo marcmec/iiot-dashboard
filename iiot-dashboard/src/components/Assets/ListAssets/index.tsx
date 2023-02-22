@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { API } from "../../../api/axios";
 import CompanyContext from "../../../contexts/Company";
 import { IAssets } from "../../../interfaces/Assets";
-import { InputSearch } from "../../InputSearch";
 import { CardAssetEspecification } from "../Card/CardAssetEspecifications";
 
 export const AllAssets = () => {
@@ -26,7 +25,7 @@ export const AllAssets = () => {
     return (
         <>
             <Card title={"All Assets"}>
-                <InputSearch />
+                {/* <InputSearch /> */}
 
                 <List
                     grid={{

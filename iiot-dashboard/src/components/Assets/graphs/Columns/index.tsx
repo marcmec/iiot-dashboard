@@ -1,6 +1,6 @@
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import { IAssets } from "../../../interfaces/Assets";
+import { IAssets } from "../../../../interfaces/Assets";
 
 interface IColumnAssetsGraphProps {
     item: IAssets[];
