@@ -3,21 +3,17 @@ import { ColumnsType } from "antd/es/table";
 import { useContext, useEffect, useState } from "react";
 import { API } from "../../../api/axios";
 import UsersContext from "../../../contexts/Users";
+import WorkOrdersContext from "../../../contexts/WorkOrders";
 import { ICheckList, IWorkOrders } from "../../../interfaces/WorkOrders";
 
 export const AllworkOrders = () => {
     const [workOrders, setWorkOrders] = useState<IWorkOrders[]>([]);
     const { usersInfo } = useContext(UsersContext);
-
-    const filterUsers = workOrders.map((wo) => {
+    const { workOrdersInfo } = useContext(WorkOrdersContext);
+    const fil = workOrdersInfo?.map((wo) => {
         return { users: wo.assignedUserIds };
     });
 
-    const separate = filterUsers.map((e) =>
-        usersInfo?.map((k) => {
-            return { new: e.users.includes(k.id) };
-        })
-    );
     const GetWorkOrders = async () => {
         const { data } = await API.get("/workorders");
         data ? localStorage.setItem("workorders", JSON.stringify(data)) : null;
@@ -29,6 +25,7 @@ export const AllworkOrders = () => {
 
     useEffect(() => {
         GetWorkOrders();
+        // GetWorkOrdersUsers();
     }, []);
 
     const columns: ColumnsType<IWorkOrders> = [
@@ -131,7 +128,7 @@ export const AllworkOrders = () => {
                 }}
                 dataSource={workOrders}
             />
-            {JSON.stringify(separate)}
+            <p style={{ color: "black" }}>ta aqui </p>
         </>
     );
 };
