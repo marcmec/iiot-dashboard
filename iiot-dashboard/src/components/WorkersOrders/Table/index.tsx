@@ -128,7 +128,6 @@ export const AllworkOrders = () => {
                 }}
                 dataSource={workOrders}
             />
-            <p style={{ color: "black" }}>ta aqui </p>
         </>
     );
 };
